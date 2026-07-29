@@ -1,27 +1,29 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PUBLIC_ROUTES = ["/", "/login"];
+const PROTECTED_PREFIXES = ["/dashboard", "/settings", "/users"];
+const AUTH_ONLY_PAGES = ["/login"];
 
 export function proxy(request: NextRequest) {
+  const token = request.cookies.get("auth_token")?.value;
   const { pathname } = request.nextUrl;
 
-  const token = request.cookies.get("venuze-auth-token")?.value;
-  const isAuthenticated = !!token;
+  const isProtected = PROTECTED_PREFIXES.some((p) => pathname.startsWith(p));
+  const isAuthPage = AUTH_ONLY_PAGES.includes(pathname);
 
-  if (isAuthenticated && pathname === "/login") {
-    return NextResponse.redirect(new URL("/dashboard", request.url));
-  }
-
-  if (!isAuthenticated && !PUBLIC_ROUTES.includes(pathname)) {
+  if (isProtected && !token) {
     const loginUrl = new URL("/login", request.url);
     loginUrl.searchParams.set("redirect", pathname);
     return NextResponse.redirect(loginUrl);
+  }
+
+  if (isAuthPage && token) {
+    return NextResponse.redirect(new URL("/dashboard", request.url));
   }
 
   return NextResponse.next();
 }
 
 export const config = {
-  matcher: ["/((?!api|_next/static|_next/image|favicon.ico|images/).*)"],
+  matcher: ["/dashboard/:path*", "/settings/:path*", "/users/:path*", "/login"],
 };

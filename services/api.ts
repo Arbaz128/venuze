@@ -1,63 +1,28 @@
 import axios from "axios";
+import { useAuthStore } from "@/store/authStore";
 
-const apiClient = axios.create({
-  baseURL: "https://reqres.in/api",
-  timeout: 15000,
-  headers: {
-    "Content-Type": "application/json",
-  },
+export const api = axios.create({
+  baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://reqres.in/api",
+  headers: { "Content-Type": "application/json" },
 });
 
-apiClient.interceptors.request.use(
-  (config) => {
-    if (typeof window !== "undefined") {
-      const stored = localStorage.getItem("venuze-auth");
-      if (stored) {
-        try {
-          const { state } = JSON.parse(stored);
-          if (state?.user?.token) {
-            config.headers.Authorization = `Bearer ${state.user.token}`;
-          }
-        } catch {
-          // ignore parse errors
-        }
+api.interceptors.request.use((config) => {
+  const token = useAuthStore.getState().token;
+  if (token) {
+    config.headers.Authorization = `Bearer ${token}`;
+  }
+  return config;
+});
+
+api.interceptors.response.use(
+  (res) => res,
+  (error) => {
+    if (error.response?.status === 401) {
+      useAuthStore.getState().clearAuth();
+      if (typeof window !== "undefined") {
+        window.location.href = "/login";
       }
     }
-    return config;
-  },
-  (error) => Promise.reject(error)
-);
-
-apiClient.interceptors.response.use(
-  (response) => response,
-  (error) => {
-    if (error.response) {
-      const message =
-        error.response.data?.error ||
-        error.response.data?.message ||
-        "An unexpected error occurred";
-
-      const formattedError = {
-        status: error.response.status,
-        message,
-        data: error.response.data,
-      };
-
-      return Promise.reject(formattedError);
-    }
-
-    if (error.request) {
-      return Promise.reject({
-        status: 0,
-        message: "Network error. Please check your connection.",
-      });
-    }
-
-    return Promise.reject({
-      status: 0,
-      message: "An unexpected error occurred.",
-    });
+    return Promise.reject(error);
   }
 );
-
-export default apiClient;

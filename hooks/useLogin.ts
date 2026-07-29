@@ -1,29 +1,27 @@
 "use client";
 
 import { useMutation } from "@tanstack/react-query";
-import { useRouter } from "next/navigation";
-import { toast } from "sonner";
-import { loginUser } from "@/services/auth";
+import { useRouter, useSearchParams } from "next/navigation";
+import { authService } from "@/services/auth";
 import { useAuthStore } from "@/store/authStore";
 import type { LoginRequest } from "@/types/auth";
 
 export function useLogin() {
   const router = useRouter();
-  const login = useAuthStore((state) => state.login);
+  const searchParams = useSearchParams();
+  const setAuth = useAuthStore((s) => s.setAuth);
 
   return useMutation({
-    mutationFn: (data: LoginRequest) => loginUser(data),
-    onSuccess: (response) => {
-      login({
-        email: "eve.holt@reqres.in",
-        token: response.token,
-      });
-      toast.success("Welcome back! You've been logged in successfully.");
-      router.push("/dashboard");
-    },
-    onError: (error: unknown) => {
-      const err = error as { message?: string };
-      toast.error(err?.message || "Login failed. Please check your credentials.");
+    mutationFn: (data: LoginRequest) => authService.login(data),
+    onSuccess: (data, variables) => {
+      const mockUser = {
+        id: "1",
+        email: variables.email,
+        name: variables.email.split("@")[0],
+      };
+      setAuth(mockUser, data.token);
+      const redirectTo = searchParams.get("redirect") || "/dashboard";
+      router.push(redirectTo);
     },
   });
 }

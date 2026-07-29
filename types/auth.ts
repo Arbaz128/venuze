@@ -7,15 +7,13 @@ export interface LoginResponse {
   token: string;
 }
 
-export interface AuthUser {
+export interface User {
+  id: string;
   email: string;
-  token: string;
+  name: string;
+  avatar?: string;
 }
 
-export interface AuthState {
-  user: AuthUser | null;
-  isAuthenticated: boolean;
-  login: (user: AuthUser) => void;
-  logout: () => void;
-  hydrate: () => void;
+export interface ApiErrorResponse {
+  error: string;
 }
