@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { LayoutDashboard } from "lucide-react";
 import Link from "next/link";
 import { UserMenu } from "@/components/layout/UserMenu";
@@ -9,11 +10,8 @@ export function DashboardShell() {
     <div className="min-h-screen bg-gray-50">
       <header className="bg-white border-b border-neutral-border">
         <div className="flex items-center justify-between px-6 h-16">
-          <Link href="/" className="flex items-center gap-2">
-            <div className="h-8 w-8 rounded-full bg-brand flex items-center justify-center">
-              <span className="text-white font-[700] text-[13px]">V</span>
-            </div>
-            <span className="font-[600] text-[16px] text-black">Venuze</span>
+          <Link href="/" className="flex items-center">
+            <Image src="/images/logo.svg" alt="Venuze" width={110} height={20} className="h-5 w-auto" />
           </Link>
           <UserMenu />
         </div>

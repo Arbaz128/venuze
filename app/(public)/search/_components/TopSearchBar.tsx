@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { Search, Plus, Globe, User, Menu } from "lucide-react";
 
 export function TopSearchBar() {
@@ -7,11 +8,8 @@ export function TopSearchBar() {
     <header className="h-[88px] bg-white border-b border-neutral-200 shadow-[0_4px_10px_rgba(0,0,0,0.1)] flex items-center px-4 md:px-8">
       <div className="flex items-center justify-between w-full max-w-[1440px] mx-auto">
         <div className="flex items-center gap-6">
-          <a href="/" className="flex items-center gap-2 flex-shrink-0">
-            <div className="h-8 w-8 rounded-full bg-brand flex items-center justify-center">
-              <span className="text-white font-[700] text-[14px]">V</span>
-            </div>
-            <span className="font-[700] text-[18px] text-black hidden sm:block">Venuze</span>
+          <a href="/" className="flex items-center flex-shrink-0">
+            <Image src="/images/logo.svg" alt="Venuze" width={110} height={20} className="h-5 w-auto" />
           </a>
 
           <div className="hidden md:flex items-center bg-white border border-neutral-300 rounded-full shadow-sm max-w-[430px] w-full">

@@ -1,7 +1,8 @@
+import Image from "next/image";
 import Link from "next/link";
 import { Mail, MessageSquare, Send, Globe, Camera, MessageCircle, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { SITE_NAME, FOOTER_COLUMNS } from "@/lib/constants";
+import { FOOTER_COLUMNS } from "@/lib/constants";
 
 const socialIcons = {
   facebook: Globe,
@@ -16,11 +17,8 @@ export function Footer() {
       <div className="container-main py-12 md:py-16 lg:py-20">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-8">
           <div className="lg:col-span-2">
-            <Link href="/" className="flex items-center gap-2 mb-4">
-              <div className="h-8 w-8 md:h-10 md:w-10 rounded-full bg-primary flex items-center justify-center">
-                <span className="text-white font-bold text-sm md:text-base">V</span>
-              </div>
-              <span className="text-white font-semibold text-lg md:text-xl">{SITE_NAME}</span>
+            <Link href="/" className="flex items-center mb-4">
+              <Image src="/images/logo.svg" alt="Venuze" width={130} height={23} className="h-5 md:h-6 w-auto" />
             </Link>
             <p className="text-dark-text/60 text-sm md:text-base leading-relaxed max-w-xs">
               Find and book the perfect venue for your next event. From intimate gatherings to grand celebrations.
@@ -80,7 +78,7 @@ export function Footer() {
 
         <div className="mt-10 md:mt-14 lg:mt-16 pt-6 md:pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
           <p className="text-dark-text/40 text-xs md:text-sm text-center md:text-left">
-            &copy; {new Date().getFullYear()} {SITE_NAME}. All rights reserved.
+            &copy; {new Date().getFullYear()} Venuze. All rights reserved.
           </p>
           <div className="flex items-center gap-3">
             {Object.entries(socialIcons).map(([name, Icon]) => (

@@ -1,11 +1,11 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 import Link from "next/link";
 import { Menu, ChevronDown, Globe, User } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { cn } from "@/lib/utils";
-import { SITE_NAME } from "@/lib/constants";
 
 export function Navbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -13,13 +13,8 @@ export function Navbar() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50">
       <div className="flex items-center justify-between h-[88px] px-4 md:px-[34px] lg:px-10 xl:px-[60px]">
-        <Link href="/" className="flex items-center gap-2">
-          <div className="h-8 w-8 md:h-10 md:w-10 lg:h-12 lg:w-12 rounded-full bg-primary flex items-center justify-center">
-            <span className="text-white font-bold text-sm md:text-base lg:text-lg">V</span>
-          </div>
-          <span className="text-white font-semibold text-lg md:text-xl lg:text-2xl">
-            {SITE_NAME}
-          </span>
+        <Link href="/" className="flex items-center">
+          <Image src="/images/logo.svg" alt="Venuze" width={130} height={23} className="h-5 md:h-6 w-auto" priority />
         </Link>
 
         <div className="flex items-center gap-2 md:gap-3">
