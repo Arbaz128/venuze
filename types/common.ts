@@ -61,6 +61,21 @@ export interface Venue {
   location: string;
 }
 
+export interface VenueStat {
+  icon: string;
+  label: string;
+}
+
+export interface FeaturedVenue {
+  id: string;
+  imageSrc: string;
+  title: string;
+  location: string;
+  stats: VenueStat[];
+  extraCount: number;
+  pricePerHour: number;
+}
+
 export interface Vendor {
   id: string;
   title: string;
