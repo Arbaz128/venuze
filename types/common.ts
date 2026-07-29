@@ -26,6 +26,22 @@ export interface Stat {
   color: string;
 }
 
+export interface StatCardData {
+  id: string;
+  value: string;
+  label: string;
+  bgColor: string;
+  textColor: "white" | "black";
+}
+
+export interface TestimonialCardData {
+  id: string;
+  quote: string;
+  name: string;
+  photoSrc: string;
+  rating: number;
+}
+
 export interface Step {
   number: number;
   title: string;
