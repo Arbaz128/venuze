@@ -138,6 +138,15 @@ npm start
 
 Visit [http://localhost:3000](http://localhost:3000)
 
+### ReqRes API Key
+
+reqres.in recently started requiring an `x-api-key` header on all requests (previously it was fully open). A free API key from reqres.in has been added via `NEXT_PUBLIC_REQRES_API_KEY` in `.env.local`. This is documented here since the original assignment brief predates this API change.
+
+```bash
+# .env.local (already set up — do not commit)
+NEXT_PUBLIC_REQRES_API_KEY=your_key_here
+```
+
 ### Demo Credentials
 
 - Email: `eve.holt@reqres.in`

@@ -3,7 +3,10 @@ import { useAuthStore } from "@/store/authStore";
 
 export const api = axios.create({
   baseURL: process.env.NEXT_PUBLIC_API_BASE_URL || "https://reqres.in/api",
-  headers: { "Content-Type": "application/json" },
+  headers: {
+    "Content-Type": "application/json",
+    "x-api-key": process.env.NEXT_PUBLIC_REQRES_API_KEY,
+  },
 });
 
 api.interceptors.request.use((config) => {
