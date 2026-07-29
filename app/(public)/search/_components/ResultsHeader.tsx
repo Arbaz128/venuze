@@ -43,9 +43,9 @@ export function ResultsHeader({ total }: ResultsHeaderProps) {
   const hasActiveFilters = activeChips.length > 0;
 
   return (
-    <div className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-neutral-200">
+    <div className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-neutral-200 dark:border-neutral-300">
       <div className="flex items-center gap-3 overflow-hidden">
-        <span className="text-[14px] font-[400] text-neutral-text-muted2 whitespace-nowrap">
+        <span className="text-[14px] font-[400] text-neutral-text-muted2 dark:text-neutral-text-muted whitespace-nowrap">
           {total} {filters.category === "all" ? "spaces" : filters.category} near{" "}
           {filters.location || "London, UK"}
         </span>
@@ -56,7 +56,7 @@ export function ResultsHeader({ total }: ResultsHeaderProps) {
               <button
                 key={chip.label}
                 onClick={chip.onRemove}
-                className="flex items-center gap-1 bg-neutral-100 rounded-full px-3 py-1 text-[11px] font-[500] text-neutral-text-dark whitespace-nowrap hover:bg-neutral-200 transition-colors"
+                className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-300 rounded-full px-3 py-1 text-[11px] font-[500] text-neutral-text-dark dark:text-dark-text whitespace-nowrap hover:bg-neutral-200 dark:hover:bg-neutral-400 transition-colors"
               >
                 {chip.label}
                 <X size={12} />
@@ -78,7 +78,7 @@ export function ResultsHeader({ total }: ResultsHeaderProps) {
         <select
           value={filters.sortBy}
           onChange={(e) => setFilters({ sortBy: e.target.value as typeof filters.sortBy })}
-          className="text-[12px] font-[500] text-neutral-text-muted bg-white border border-neutral-250 rounded-lg px-3 py-1.5 outline-none cursor-pointer"
+          className="text-[12px] font-[500] text-neutral-text-muted bg-white dark:bg-dark-card border border-neutral-250 dark:border-neutral-300 rounded-lg px-3 py-1.5 outline-none cursor-pointer"
         >
           <option value="recommended">Sort by: Recommended</option>
           <option value="price_low">Price (Low to High)</option>
@@ -92,7 +92,7 @@ export function ResultsHeader({ total }: ResultsHeaderProps) {
             "h-[44px] w-[44px] rounded-full border flex items-center justify-center transition-colors",
             isMapView
               ? "bg-brand text-white border-brand"
-              : "bg-white/85 border-neutral-250 text-neutral-text-muted hover:bg-neutral-100"
+              : "bg-white/85 dark:bg-dark-card border-neutral-250 dark:border-neutral-300 text-neutral-text-muted hover:bg-neutral-100 dark:hover:bg-neutral-300"
           )}
           aria-label={isMapView ? "Show list" : "Show map"}
         >

@@ -46,10 +46,10 @@ export function CategoryTabs({ active, onChange }: CategoryTabsProps) {
   };
 
   return (
-    <div className="h-[80px] border-b border-neutral-350 bg-white flex items-center relative">
+    <div className="h-[80px] border-b border-neutral-350 dark:border-neutral-300 bg-white dark:bg-dark-bg flex items-center relative">
       <button
         onClick={() => scroll("left")}
-        className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 h-8 w-8 items-center justify-center rounded-full bg-white shadow-md border border-neutral-200 ml-2"
+        className="hidden md:flex absolute left-0 top-1/2 -translate-y-1/2 z-10 h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-dark-card shadow-md border border-neutral-200 dark:border-neutral-300 ml-2"
         aria-label="Scroll categories left"
       >
         <ChevronLeft size={16} className="text-neutral-text-muted" />
@@ -58,6 +58,8 @@ export function CategoryTabs({ active, onChange }: CategoryTabsProps) {
       <div
         ref={scrollRef}
         className="flex items-center gap-6 md:gap-8 overflow-x-auto scrollbar-hide px-4 md:px-12 w-full"
+        role="tablist"
+        aria-label="Venue categories"
       >
         {categories.map((cat) => {
           const Icon = cat.icon;
@@ -66,16 +68,18 @@ export function CategoryTabs({ active, onChange }: CategoryTabsProps) {
             <button
               key={cat.id}
               onClick={() => onChange(cat.id)}
+              role="tab"
+              aria-selected={isActive}
               className={cn(
                 "flex flex-col items-center gap-1.5 pb-3 pt-2 min-w-[72px] transition-colors relative",
-                isActive ? "text-brand" : "text-[#616161]"
+                isActive ? "text-brand" : "text-[#616161] dark:text-neutral-text-muted"
               )}
             >
               <Icon size={24} strokeWidth={isActive ? 2 : 1.5} />
               <span
                 className={cn(
                   "text-[12px] whitespace-nowrap leading-none",
-                  isActive ? "font-[600]" : "font-[400] text-[#828282]"
+                  isActive ? "font-[600]" : "font-[400] text-[#828282] dark:text-neutral-text-muted"
                 )}
               >
                 {cat.label}
@@ -90,7 +94,7 @@ export function CategoryTabs({ active, onChange }: CategoryTabsProps) {
 
       <button
         onClick={() => scroll("right")}
-        className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 h-8 w-8 items-center justify-center rounded-full bg-white shadow-md border border-neutral-200 mr-2"
+        className="hidden md:flex absolute right-0 top-1/2 -translate-y-1/2 z-10 h-8 w-8 items-center justify-center rounded-full bg-white dark:bg-dark-card shadow-md border border-neutral-200 dark:border-neutral-300 mr-2"
         aria-label="Scroll categories right"
       >
         <ChevronRight size={16} className="text-neutral-text-muted" />

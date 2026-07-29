@@ -32,9 +32,8 @@ export function FilterModal() {
       <ModalHeader onClose={close}>Filters</ModalHeader>
 
       <div className="px-6 py-5 space-y-6 overflow-y-auto">
-        {/* Venue Type */}
         <section>
-          <h3 className="text-[14px] font-[600] text-black mb-3">Venue Type</h3>
+          <h3 className="text-[14px] font-[600] text-black dark:text-dark-text mb-3">Venue Type</h3>
           <div className="flex flex-wrap gap-2">
             {venueTypeOptions.map((type) => (
               <FilterChip
@@ -47,11 +46,10 @@ export function FilterModal() {
           </div>
         </section>
 
-        <div className="w-full h-px bg-neutral-border" />
+        <div className="w-full h-px bg-neutral-border dark:bg-neutral-300" />
 
-        {/* Capacity */}
         <section>
-          <h3 className="text-[14px] font-[600] text-black mb-1">Capacity</h3>
+          <h3 className="text-[14px] font-[600] text-black dark:text-dark-text mb-1">Capacity</h3>
           <p className="text-[12px] font-[400] text-neutral-text-muted mb-3">
             Showing venues for {filters.capacityRange[0]} - {filters.capacityRange[1]} guests
           </p>
@@ -64,11 +62,10 @@ export function FilterModal() {
           />
         </section>
 
-        <div className="w-full h-px bg-neutral-border" />
+        <div className="w-full h-px bg-neutral-border dark:bg-neutral-300" />
 
-        {/* Price */}
         <section>
-          <h3 className="text-[14px] font-[600] text-black mb-1">Price per hour (AED)</h3>
+          <h3 className="text-[14px] font-[600] text-black dark:text-dark-text mb-1">Price per hour (AED)</h3>
           <div className="flex items-center justify-between mb-3">
             <span className="text-[13px] font-[400] text-neutral-text-muted">AED {filters.priceRange[0]}.00</span>
             <span className="text-[13px] font-[400] text-neutral-text-muted">AED {filters.priceRange[1]}.00</span>
@@ -81,11 +78,10 @@ export function FilterModal() {
           />
         </section>
 
-        <div className="w-full h-px bg-neutral-border" />
+        <div className="w-full h-px bg-neutral-border dark:bg-neutral-300" />
 
-        {/* Occasion */}
         <section>
-          <h3 className="text-[14px] font-[600] text-black mb-3">Event / Occasion</h3>
+          <h3 className="text-[14px] font-[600] text-black dark:text-dark-text mb-3">Event / Occasion</h3>
           <div className="flex flex-wrap gap-2">
             {occasionOptions.map((occ) => (
               <FilterChip
@@ -98,12 +94,11 @@ export function FilterModal() {
           </div>
         </section>
 
-        <div className="w-full h-px bg-neutral-border" />
+        <div className="w-full h-px bg-neutral-border dark:bg-neutral-300" />
 
-        {/* Verified Only */}
         <section className="flex items-center justify-between">
           <div>
-            <h3 className="text-[14px] font-[600] text-black">Verified Only</h3>
+            <h3 className="text-[14px] font-[600] text-black dark:text-dark-text">Verified Only</h3>
             <p className="text-[12px] font-[400] text-neutral-text-muted">
               Show only verified venues
             </p>
@@ -115,10 +110,10 @@ export function FilterModal() {
         </section>
       </div>
 
-      <div className="sticky bottom-0 bg-white border-t border-neutral-border px-6 py-4 flex items-center gap-3">
+      <div className="sticky bottom-0 bg-white dark:bg-dark-bg border-t border-neutral-border dark:border-neutral-300 px-6 py-4 flex items-center gap-3">
         <button
-          onClick={resetFilters}
-          className="flex-1 border border-neutral-300 text-neutral-text-muted rounded-[10px] py-2.5 text-[13px] font-[500] hover:bg-neutral-50 transition-colors"
+          onClick={() => { resetFilters(); close(); }}
+          className="flex-1 border border-neutral-300 text-neutral-text-muted rounded-[10px] py-2.5 text-[13px] font-[500] hover:bg-neutral-50 dark:hover:bg-neutral-300 transition-colors"
         >
           Clear All
         </button>

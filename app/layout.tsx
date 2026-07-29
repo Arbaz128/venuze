@@ -35,8 +35,8 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" suppressHydrationWarning data-scroll-behavior="smooth">
-      <body className={`${poppins.variable} font-sans antialiased`} suppressHydrationWarning>
+    <html lang="en" suppressHydrationWarning>
+      <body className={`${poppins.variable} font-sans antialiased bg-surface text-text-primary transition-colors`} suppressHydrationWarning>
         <Providers>{children}</Providers>
       </body>
     </html>

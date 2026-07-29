@@ -36,6 +36,32 @@
   --font-sans: var(--font-poppins);
 }
 
+@theme dark {
+  --color-primary: #FF6B52;
+  --color-brand: #FF6B52;
+  --color-hero-overlay: #1A0A08;
+  --color-muted: #999;
+  --color-muted-dark: #BBB;
+  --color-border: #333;
+  --color-border-dark: #444;
+  --color-warm-bg: #2A2010;
+  --color-card-bg: #242424;
+  --color-neutral-50: #1A1A1A;
+  --color-neutral-100: #242424;
+  --color-neutral-150: #2A2A2A;
+  --color-neutral-200: #333;
+  --color-neutral-250: #383838;
+  --color-neutral-300: #444;
+  --color-neutral-350: #555;
+  --color-neutral-400: #666;
+  --color-neutral-border: #333;
+  --color-neutral-text-muted: #A0A0A0;
+  --color-neutral-text-muted2: #B0B0B0;
+  --color-neutral-text-chip: #CCC;
+  --color-neutral-text-dark: #D0D0D0;
+  --color-neutral-text-slate: #A0A0B0;
+}
+
 @utility container-main {
   max-width: 1280px;
   margin-left: auto;
@@ -80,4 +106,18 @@ body {
   font-family: var(--font-poppins), ui-sans-serif, system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+}
+
+:root {
+  --color-surface: #fff;
+  --color-surface-secondary: #F9FAFB;
+  --color-text-primary: #000;
+  --color-text-secondary: #616161;
+}
+
+.dark {
+  --color-surface: #1A1A1A;
+  --color-surface-secondary: #242424;
+  --color-text-primary: #E0E0E0;
+  --color-text-secondary: #A0A0A0;
 }

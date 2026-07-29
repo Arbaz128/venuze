@@ -6,14 +6,20 @@ import { ListingCard, ListingCardSkeleton } from "./ListingCard";
 import { EmptyState } from "./EmptyState";
 
 export function ListingGrid() {
-  const { data, isLoading, isError } = useListingsQuery();
+  const { data, isLoading, isError, refetch } = useListingsQuery();
   const isMapView = useFilterStore((s) => s.isMapView);
 
   if (isError) {
     return (
-      <div className="flex flex-col items-center justify-center py-20 text-neutral-text-muted">
+      <div className="flex flex-col items-center justify-center py-20 text-neutral-text-muted" role="alert">
         <p className="text-[15px] font-[500]">Something went wrong</p>
         <p className="text-[13px] mt-2">Please try again later.</p>
+        <button
+          onClick={() => refetch()}
+          className="mt-4 bg-brand text-white rounded-[10px] px-5 py-2.5 text-[13px] font-[500] hover:opacity-90 transition-opacity"
+        >
+          Try Again
+        </button>
       </div>
     );
   }

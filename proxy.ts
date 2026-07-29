@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 import type { NextRequest } from "next/server";
 
-const PROTECTED_PREFIXES = ["/dashboard", "/settings", "/users"];
+const PROTECTED_PREFIXES = ["/dashboard"];
 const AUTH_ONLY_PAGES = ["/login"];
 
 export function proxy(request: NextRequest) {
@@ -25,5 +25,5 @@ export function proxy(request: NextRequest) {
 }
 
 export const config = {
-  matcher: ["/dashboard/:path*", "/settings/:path*", "/users/:path*", "/login"],
+  matcher: ["/dashboard/:path*", "/login"],
 };

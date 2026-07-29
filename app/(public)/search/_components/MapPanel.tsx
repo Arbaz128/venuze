@@ -10,8 +10,8 @@ interface MapPanelProps {
 
 export function MapPanel({ listings, onClose }: MapPanelProps) {
   return (
-    <div className="relative w-full h-full bg-neutral-200 overflow-hidden rounded-lg">
-      <div className="absolute inset-0 bg-[url('/images/sections/featured-venues-bg.png')] bg-cover bg-center opacity-30" />
+    <div className="relative w-full h-full bg-neutral-200 dark:bg-neutral-300 overflow-hidden rounded-lg">
+      <div className="absolute inset-0 bg-[url('/images/sections/featured-venues-bg.png')] bg-cover bg-center opacity-30 dark:opacity-20" />
 
       {listings.map((listing) => {
         const pinX = ((listing.lng + 180) / 360) * 100;
@@ -37,17 +37,17 @@ export function MapPanel({ listings, onClose }: MapPanelProps) {
         {onClose && (
           <button
             onClick={onClose}
-            className="h-8 w-8 rounded-full bg-white shadow-md flex items-center justify-center"
+            className="h-8 w-8 rounded-full bg-white dark:bg-dark-card shadow-md flex items-center justify-center"
             aria-label="Close map"
           >
             <X size={14} />
           </button>
         )}
         <button
-          className="h-8 w-8 rounded-full bg-white shadow-md flex items-center justify-center"
+          className="h-8 w-8 rounded-full bg-white dark:bg-dark-card shadow-md flex items-center justify-center"
           aria-label="Expand map"
         >
-          <Maximize2 size={14} />
+          < Maximize2 size={14} />
         </button>
       </div>
     </div>

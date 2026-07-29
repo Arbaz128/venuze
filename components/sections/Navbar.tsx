@@ -29,18 +29,18 @@ export function Navbar() {
           </Button>
 
           <div className="hidden md:flex items-center gap-2">
-            <div className="h-10 px-3 lg:px-4 bg-white rounded-[10px] flex items-center gap-2 shadow-md cursor-pointer hover:bg-gray-50 transition-colors">
+            <div className="h-10 px-3 lg:px-4 bg-white dark:bg-dark-card rounded-[10px] flex items-center gap-2 shadow-md cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors">
               <Globe className="h-4 w-4 text-muted" />
               <span className="text-xs lg:text-sm font-medium text-muted-dark">EN</span>
             </div>
           </div>
 
-          <div className="h-9 w-9 md:h-10 md:w-10 lg:h-[44px] lg:w-[44px] bg-white rounded-[10px] flex items-center justify-center shadow-md cursor-pointer hover:bg-gray-50 transition-colors">
+          <div className="h-9 w-9 md:h-10 md:w-10 lg:h-[44px] lg:w-[44px] bg-white dark:bg-dark-card rounded-[10px] flex items-center justify-center shadow-md cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors">
             <User className="h-4 w-4 md:h-5 md:w-5 text-muted-dark" />
           </div>
 
           <button
-            className="md:hidden h-9 w-9 bg-white rounded-[5px] flex items-center justify-center shadow-md"
+            className="md:hidden h-9 w-9 bg-white dark:bg-dark-card rounded-[5px] flex items-center justify-center shadow-md"
             onClick={() => setMobileOpen(!mobileOpen)}
             aria-label="Toggle menu"
           >
@@ -51,7 +51,7 @@ export function Navbar() {
 
       <div
         className={cn(
-          "md:hidden bg-white mx-4 rounded-[10px] shadow-lg overflow-hidden transition-all duration-300",
+          "md:hidden bg-white dark:bg-dark-card mx-4 rounded-[10px] shadow-lg overflow-hidden transition-all duration-300",
           mobileOpen ? "max-h-80 opacity-100" : "max-h-0 opacity-0"
         )}
       >

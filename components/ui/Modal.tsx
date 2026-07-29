@@ -15,22 +15,48 @@ interface ModalProps {
 export function Modal({ open, onClose, children, mobileSheet, className }: ModalProps) {
   const overlayRef = useRef<HTMLDivElement>(null);
   const contentRef = useRef<HTMLDivElement>(null);
+  const previousActiveElement = useRef<HTMLElement | null>(null);
 
   const handleKeyDown = useCallback(
     (e: KeyboardEvent) => {
-      if (e.key === "Escape") onClose();
+      if (e.key === "Escape") {
+        onClose();
+        return;
+      }
+      if (e.key === "Tab" && contentRef.current) {
+        const focusable = contentRef.current.querySelectorAll<HTMLElement>(
+          'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+        );
+        if (focusable.length === 0) return;
+        const first = focusable[0];
+        const last = focusable[focusable.length - 1];
+        if (e.shiftKey) {
+          if (document.activeElement === first) {
+            e.preventDefault();
+            last.focus();
+          }
+        } else {
+          if (document.activeElement === last) {
+            e.preventDefault();
+            first.focus();
+          }
+        }
+      }
     },
     [onClose]
   );
 
   useEffect(() => {
     if (open) {
+      previousActiveElement.current = document.activeElement as HTMLElement;
       document.addEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "hidden";
+      setTimeout(() => contentRef.current?.querySelector<HTMLElement>("button, [href], input")?.focus(), 50);
     }
     return () => {
       document.removeEventListener("keydown", handleKeyDown);
       document.body.style.overflow = "";
+      previousActiveElement.current?.focus();
     };
   }, [open, handleKeyDown]);
 
@@ -49,7 +75,7 @@ export function Modal({ open, onClose, children, mobileSheet, className }: Modal
         role="dialog"
         aria-modal="true"
         className={cn(
-          "relative w-full bg-white shadow-xl overflow-y-auto",
+          "relative w-full bg-white dark:bg-dark-bg shadow-xl overflow-y-auto",
           mobileSheet
             ? "max-h-[92vh] rounded-t-2xl animate-in slide-in-from-bottom"
             : "max-w-[500px] rounded-2xl max-h-[90vh] m-4",
@@ -64,12 +90,12 @@ export function Modal({ open, onClose, children, mobileSheet, className }: Modal
 
 export function ModalHeader({ children, onClose }: { children: ReactNode; onClose: () => void }) {
   return (
-    <div className="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-border bg-white px-6 py-4">
-      <h2 className="text-[18px] font-[600] text-black">{children}</h2>
+    <div className="sticky top-0 z-10 flex items-center justify-between border-b border-neutral-border dark:border-neutral-300 bg-white dark:bg-dark-bg px-6 py-4">
+      <h2 className="text-[18px] font-[600] text-black dark:text-dark-text">{children}</h2>
       <button
         onClick={onClose}
         aria-label="Close modal"
-        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-neutral-100 transition-colors"
+        className="flex h-8 w-8 items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-300 transition-colors"
       >
         <X size={18} />
       </button>

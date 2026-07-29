@@ -95,7 +95,6 @@ export function FeaturedVenuesSection() {
           sizes="100vw"
           className="object-cover opacity-50"
           style={{ objectPosition: "55% 35%" }}
-          preload={false}
         />
       </div>
 

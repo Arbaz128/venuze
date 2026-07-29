@@ -1,7 +1,6 @@
 "use client";
 
 import { useFilterStore } from "@/store/filterStore";
-import { useDebounce } from "@/hooks/useDebounce";
 import { useListingsQuery } from "@/hooks/useListingsQuery";
 import { TopSearchBar } from "@/app/(public)/search/_components/TopSearchBar";
 import { CategoryTabs } from "@/app/(public)/search/_components/CategoryTabs";
@@ -11,23 +10,20 @@ import { ListingGrid } from "@/app/(public)/search/_components/ListingGrid";
 import { MapPanel } from "@/app/(public)/search/_components/MapPanel";
 import { FilterModal } from "@/app/(public)/search/_components/FilterModal";
 
+const STICKY_OFFSET = 218;
+
 export function SearchResultsView() {
   const filters = useFilterStore((s) => s.filters);
   const setFilters = useFilterStore((s) => s.setFilters);
   const isMapView = useFilterStore((s) => s.isMapView);
   const toggleMapView = useFilterStore((s) => s.toggleMapView);
 
-  const debouncedKeyword = useDebounce(filters.keyword, 300);
-  if (filters.keyword !== debouncedKeyword) {
-    // keyword hasn't settled yet — don't update store
-  }
-
-  const { data, isLoading } = useListingsQuery();
+  const { data } = useListingsQuery();
   const total = data?.total ?? 0;
   const listings = data?.items ?? [];
 
   return (
-    <div className="min-h-screen bg-white flex flex-col">
+    <div className="min-h-screen bg-white dark:bg-dark-bg flex flex-col">
       <TopSearchBar />
       <CategoryTabs
         active={filters.category}
@@ -42,11 +38,14 @@ export function SearchResultsView() {
         </div>
 
         {isMapView && (
-          <div className="fixed inset-0 z-40 xl:relative xl:z-auto xl:sticky xl:top-[218px] xl:w-[421px] xl:h-[calc(100vh-218px)] xl:flex-shrink-0">
+          <div
+            className="fixed inset-0 z-40 xl:relative xl:z-auto xl:sticky xl:flex-shrink-0 xl:w-[421px]"
+            style={{ top: STICKY_OFFSET, height: `calc(100vh - ${STICKY_OFFSET}px)` }}
+          >
             <div className="xl:hidden absolute top-4 left-4 z-10">
               <button
                 onClick={toggleMapView}
-                className="bg-white rounded-full px-4 py-2 shadow-md text-[13px] font-[500] flex items-center gap-2"
+                className="bg-white dark:bg-dark-card rounded-full px-4 py-2 shadow-md text-[13px] font-[500] flex items-center gap-2"
                 aria-label="Show list"
               >
                 <span className="text-lg leading-none">&larr;</span>
@@ -58,7 +57,10 @@ export function SearchResultsView() {
         )}
 
         {!isMapView && (
-          <div className="hidden xl:block xl:sticky xl:top-[218px] xl:w-[421px] xl:h-[calc(100vh-218px)] xl:flex-shrink-0 xl:border-l xl:border-neutral-200">
+          <div
+            className="hidden xl:block xl:sticky xl:flex-shrink-0 xl:w-[421px] xl:border-l xl:border-neutral-200 dark:xl:border-neutral-300"
+            style={{ top: STICKY_OFFSET, height: `calc(100vh - ${STICKY_OFFSET}px)` }}
+          >
             <MapPanel listings={listings} />
           </div>
         )}

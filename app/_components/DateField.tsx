@@ -52,8 +52,6 @@ export function DateField({ value, onChange, variant = "hero" }: DateFieldProps)
     else { setViewMonth((m) => m + 1); }
   };
 
-  const displayValue = value || (variant === "hero" ? "Select date" : "Anytime");
-
   return (
     <>
       <button
@@ -68,8 +66,8 @@ export function DateField({ value, onChange, variant = "hero" }: DateFieldProps)
         <Calendar className={cn("flex-shrink-0", variant === "hero" ? "h-5 w-5 text-[#767676]" : "h-4 w-4 text-[#767676]")} />
         <div className="flex-1 min-w-0">
           <span className={cn("block font-[600]", variant === "hero" ? "text-[11px]" : "text-[10px]", "text-[#767676]")}>When</span>
-          <span className={cn("block truncate", value ? "text-black font-[500]" : "text-[#A0A0A0]", variant === "hero" ? "text-[14px]" : "text-[12px]")}>
-            {displayValue}
+          <span className={cn("block truncate", value ? "text-black dark:text-dark-text font-[500]" : "text-[#A0A0A0]", variant === "hero" ? "text-[14px]" : "text-[12px]")}>
+            {value || (variant === "hero" ? "Select date" : "Anytime")}
           </span>
         </div>
       </button>
@@ -77,7 +75,7 @@ export function DateField({ value, onChange, variant = "hero" }: DateFieldProps)
       {open && createPortal(
         <div className="fixed inset-0 z-[100]" onClick={() => setOpen(false)}>
           <div
-            className="absolute bg-white rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.18)] border border-neutral-200 p-5"
+            className="absolute bg-white dark:bg-dark-card rounded-2xl shadow-[0_8px_30px_rgba(0,0,0,0.18)] border border-neutral-200 dark:border-neutral-300 p-5"
             style={{ top: pos.top, left: pos.left, width: pos.width }}
             onClick={(e) => e.stopPropagation()}
           >
@@ -90,18 +88,18 @@ export function DateField({ value, onChange, variant = "hero" }: DateFieldProps)
             </button>
 
             <div className="flex items-center justify-between mb-4">
-              <button type="button" onClick={prevMonth} className="h-7 w-7 flex items-center justify-center rounded-full hover:bg-neutral-100">
+              <button type="button" onClick={prevMonth} className="h-7 w-7 flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-300" aria-label="Previous month">
                 <ChevronLeft size={16} />
               </button>
-              <span className="text-[14px] font-[600]">{MONTHS[viewMonth]} {viewYear}</span>
-              <button type="button" onClick={nextMonth} className="h-7 w-7 flex items-center justify-center rounded-full hover:bg-neutral-100">
+              <span className="text-[14px] font-[600] text-black dark:text-dark-text">{MONTHS[viewMonth]} {viewYear}</span>
+              <button type="button" onClick={nextMonth} className="h-7 w-7 flex items-center justify-center rounded-full hover:bg-neutral-100 dark:hover:bg-neutral-300" aria-label="Next month">
                 <ChevronRight size={16} />
               </button>
             </div>
 
-            <div className="grid grid-cols-7 gap-1 text-center mb-1">
+            <div className="grid grid-cols-7 gap-1 text-center mb-1" role="grid" aria-label="Calendar">
               {DAYS.map((d) => (
-                <span key={d} className="text-[11px] font-[500] text-[#A0A0A0] py-1">{d}</span>
+                <span key={d} className="text-[11px] font-[500] text-[#A0A0A0] py-1" role="columnheader">{d}</span>
               ))}
               {Array.from({ length: firstDayOfWeek }).map((_, i) => (
                 <div key={`empty-${i}`} />
@@ -117,9 +115,12 @@ export function DateField({ value, onChange, variant = "hero" }: DateFieldProps)
                     onClick={() => handleSelect(day)}
                     className={cn(
                       "h-9 w-9 flex items-center justify-center rounded-full text-[13px] transition-colors",
-                      isSelected ? "bg-brand text-white font-[600]" : "hover:bg-neutral-100 text-black",
+                      isSelected ? "bg-brand text-white font-[600]" : "hover:bg-neutral-100 dark:hover:bg-neutral-300 text-black dark:text-dark-text",
                       isToday && !isSelected ? "border border-brand text-brand font-[500]" : ""
                     )}
+                    role="gridcell"
+                    aria-label={`${MONTHS[viewMonth]} ${day}, ${viewYear}`}
+                    aria-selected={isSelected || undefined}
                   >
                     {day}
                   </button>

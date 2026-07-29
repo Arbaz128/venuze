@@ -1,9 +1,3 @@
-/*
- * Zustand persist handles client-side rehydration (instant correct UI on refresh).
- * A separate cookie is set in parallel because Next.js Edge Middleware runs on
- * the server and cannot read localStorage — the cookie is the single source of
- * truth for route protection in proxy.ts.
- */
 import { create } from "zustand";
 import { persist } from "zustand/middleware";
 import Cookies from "js-cookie";
@@ -24,7 +18,7 @@ export const useAuthStore = create<AuthState>()(
       token: null,
       isAuthenticated: false,
       setAuth: (user, token) => {
-        Cookies.set("auth_token", token, { expires: 1, sameSite: "lax" });
+        Cookies.set("auth_token", token, { expires: 1, sameSite: "lax", secure: process.env.NODE_ENV === "production" });
         set({ user, token, isAuthenticated: true });
       },
       clearAuth: () => {
