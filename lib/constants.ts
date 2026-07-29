@@ -15,25 +15,25 @@ export const CATEGORIES: Category[] = [
     id: "celebration",
     title: "Celebration Venues",
     venueCount: 37,
-    image: "/images/categories/celebration.jpg",
+    image: "/images/categories/celebration.png",
   },
   {
     id: "private-party",
     title: "Private Party Venues",
     venueCount: 42,
-    image: "/images/categories/private-party.jpg",
+    image: "/images/categories/private-party.png",
   },
   {
     id: "corporate",
     title: "Corporate Meetings",
     venueCount: 28,
-    image: "/images/categories/corporate.jpg",
+    image: "/images/categories/corporate.png",
   },
   {
     id: "creative",
     title: "Creative Studios",
     venueCount: 19,
-    image: "/images/categories/creative.jpg",
+    image: "/images/categories/creative.png",
   },
 ];
 
@@ -70,7 +70,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Sarah Johnson",
     role: "Event Planner",
     quote: "\"Venuze made finding the perfect venue incredibly easy. The detailed listings and transparent pricing saved me hours of research.\"",
-    avatar: "/images/testimonials/testimonial-1.jpg",
+    avatar: "/images/testimonials/testimonial-1.png",
     rating: 5,
   },
   {
@@ -78,7 +78,7 @@ export const TESTIMONIALS: Testimonial[] = [
     name: "Michael Chen",
     role: "Corporate Events Director",
     quote: "\"The variety of venues available on Venuze is outstanding. From intimate meetings to large conferences, we found exactly what we needed.\"",
-    avatar: "/images/testimonials/testimonial-2.jpg",
+    avatar: "/images/testimonials/testimonial-2.png",
     rating: 5,
   },
 ];
@@ -130,7 +130,7 @@ export const FEATURED_VENUES = [
   {
     id: "v2",
     title: "Skyline Rooftop",
-    image: "/images/featured-venues/venue-2.jpg",
+    image: "/images/featured-venues/venue-2.png",
     verified: true,
     rating: 4.8,
     reviewCount: 96,
@@ -141,7 +141,7 @@ export const FEATURED_VENUES = [
   {
     id: "v3",
     title: "The Garden Terrace",
-    image: "/images/featured-venues/venue-3.jpg",
+    image: "/images/featured-venues/venue-3.png",
     verified: true,
     rating: 4.7,
     reviewCount: 84,
@@ -152,7 +152,7 @@ export const FEATURED_VENUES = [
   {
     id: "v4",
     title: "Modern Art Studio",
-    image: "/images/featured-venues/venue-4.jpg",
+    image: "/images/featured-venues/venue-4.png",
     verified: true,
     rating: 4.9,
     reviewCount: 156,
@@ -166,25 +166,25 @@ export const VENDORS: Vendor[] = [
   {
     id: "caterers",
     title: "Caterers",
-    image: "/images/vendors/caterers.jpg",
+    image: "/images/vendors/caterers.png",
     venueCount: 240,
   },
   {
     id: "decorators",
     title: "Decorators",
-    image: "/images/vendors/decorators.jpg",
+    image: "/images/vendors/decorators.png",
     venueCount: 180,
   },
   {
     id: "photographers",
     title: "Photographers",
-    image: "/images/vendors/photographers.jpg",
+    image: "/images/vendors/photographers.png",
     venueCount: 310,
   },
   {
     id: "entertainment",
     title: "Entertainment",
-    image: "/images/vendors/entertainment.jpg",
+    image: "/images/vendors/entertainment.png",
     venueCount: 150,
   },
 ];
@@ -195,21 +195,21 @@ export const DESTINATIONS: Destination[] = [
     city: "New York",
     tagline: "The city that never sleeps",
     venueCount: 340,
-    image: "/images/destinations/new-york.jpg",
+    image: "/images/destinations/new-york.png",
   },
   {
     id: "london",
     city: "London",
     tagline: "Where tradition meets modernity",
     venueCount: 280,
-    image: "/images/destinations/london.jpg",
+    image: "/images/destinations/london.png",
   },
   {
     id: "dubai",
     city: "Dubai",
     tagline: "Luxury redefined",
     venueCount: 190,
-    image: "/images/destinations/dubai.jpg",
+    image: "/images/destinations/dubai.png",
   },
 ];
 

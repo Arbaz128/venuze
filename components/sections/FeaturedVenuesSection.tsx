@@ -17,19 +17,60 @@ const filterLabels = [
   "Ballroom",
 ];
 
-const sampleVenues: FeaturedVenue[] = Array.from({ length: 4 }, (_, i) => ({
-  id: String(i + 1),
-  imageSrc: "", // TODO: replace imageSrc with real uploaded venue photos
-  title: "High-Spec Room in Trendy Home Clapham/ Stockwell",
-  location: "London, SW1",
-  stats: [
-    { icon: "Users", label: "300+" },
-    { icon: "Maximize2", label: "2,000 sq ft" },
-    { icon: "ParkingCircle", label: "Free parking" },
-  ],
-  extraCount: 25,
-  pricePerHour: 50,
-}));
+const sampleVenues: FeaturedVenue[] = [
+  {
+    id: "v1",
+    imageSrc: "/images/featured-venues/venue-1.jpg",
+    title: "High-Spec Room in Trendy Home Clapham/ Stockwell",
+    location: "London, SW1",
+    stats: [
+      { icon: "Users", label: "300+" },
+      { icon: "Maximize2", label: "2,000 sq ft" },
+      { icon: "ParkingCircle", label: "Free parking" },
+    ],
+    extraCount: 25,
+    pricePerHour: 50,
+  },
+  {
+    id: "v2",
+    imageSrc: "/images/featured-venues/venue-2.png",
+    title: "High-Spec Room in Trendy Home Clapham/ Stockwell",
+    location: "London, SW1",
+    stats: [
+      { icon: "Users", label: "300+" },
+      { icon: "Maximize2", label: "2,000 sq ft" },
+      { icon: "ParkingCircle", label: "Free parking" },
+    ],
+    extraCount: 25,
+    pricePerHour: 50,
+  },
+  {
+    id: "v3",
+    imageSrc: "/images/featured-venues/venue-3.png",
+    title: "High-Spec Room in Trendy Home Clapham/ Stockwell",
+    location: "London, SW1",
+    stats: [
+      { icon: "Users", label: "300+" },
+      { icon: "Maximize2", label: "2,000 sq ft" },
+      { icon: "ParkingCircle", label: "Free parking" },
+    ],
+    extraCount: 25,
+    pricePerHour: 50,
+  },
+  {
+    id: "v4",
+    imageSrc: "/images/featured-venues/venue-4.png",
+    title: "High-Spec Room in Trendy Home Clapham/ Stockwell",
+    location: "London, SW1",
+    stats: [
+      { icon: "Users", label: "300+" },
+      { icon: "Maximize2", label: "2,000 sq ft" },
+      { icon: "ParkingCircle", label: "Free parking" },
+    ],
+    extraCount: 25,
+    pricePerHour: 50,
+  },
+];
 
 export function FeaturedVenuesSection() {
   const [activeFilter, setActiveFilter] = useState("Gallery");
@@ -48,7 +89,7 @@ export function FeaturedVenuesSection() {
     <section className="relative w-full overflow-hidden bg-black">
       <div className="absolute inset-0 overflow-hidden">
         <Image
-          src="/images/sections/featured-venues-bg.jpg"
+          src="/images/sections/featured-venues-bg.png"
           alt=""
           fill
           sizes="100vw"

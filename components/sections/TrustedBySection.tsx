@@ -41,14 +41,14 @@ const testimonials: TestimonialCardData[] = [
     id: "1",
     quote: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     name: "Michael Carter",
-    photoSrc: "/images/testimonials/michael-carter.jpg",
+    photoSrc: "/images/testimonials/testimonial-1.png",
     rating: 5,
   },
   {
     id: "2",
     quote: "Lorem Ipsum is simply dummy text of the printing and typesetting industry.",
     name: "by Ayesha M.",
-    photoSrc: "/images/testimonials/ayesha-m.jpg",
+    photoSrc: "/images/testimonials/testimonial-2.png",
     rating: 5,
   },
 ];

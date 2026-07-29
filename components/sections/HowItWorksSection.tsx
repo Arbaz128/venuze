@@ -1,94 +1,120 @@
 import Image from "next/image";
-import { Search, MessageCircle, CalendarCheck } from "lucide-react";
-import { STEPS } from "@/lib/constants";
+import { Image as ImageIcon } from "lucide-react";
+import { StepItem } from "@/components/ui/StepItem";
 
-const iconMap = {
-  search: Search,
-  "message-circle": MessageCircle,
-  "calendar-check": CalendarCheck,
+interface CollagePhoto {
+  id: string;
+  src: string;
+  position: "top-left" | "top-right" | "bottom-left" | "bottom-right";
+}
+
+interface StepData {
+  id: string;
+  number: number;
+  title: string;
+  description: string;
+}
+
+const collagePhotos: CollagePhoto[] = [
+  { id: "c1", src: "/images/how-it-works/collage-1.png", position: "top-left" },
+  { id: "c2", src: "/images/how-it-works/collage-2.png", position: "top-right" },
+  { id: "c3", src: "/images/how-it-works/collage-3.png", position: "bottom-left" },
+  { id: "c4", src: "/images/how-it-works/collage-4.png", position: "bottom-right" },
+];
+
+const steps: StepData[] = [
+  {
+    id: "s1",
+    number: 1,
+    title: "Search & filter",
+    description:
+      "Browse our curated collection of venues and event professionals. Use smart filters, high-quality visuals, and authentic reviews to find options that fit your needs, style, and budget.",
+  },
+  {
+    id: "s2",
+    number: 2,
+    title: "Compare & message",
+    description:
+      "Communicate directly with venue hosts and service providers. Request tailored quotes, discuss requirements, and design every detail of your event or project with confidence.",
+  },
+  {
+    id: "s3",
+    number: 3,
+    title: "Book & add services",
+    description:
+      "Secure your choices with ease through our protected booking system. With clear agreements, secure payments, and ongoing support, you can move forward knowing everything is handled.",
+  },
+];
+
+const photoPositions: Record<string, { top: string; left: string }> = {
+  "top-left": { top: "0%", left: "0%" },
+  "top-right": { top: "10.81%", left: "51.46%" },
+  "bottom-left": { top: "46.44%", left: "0%" },
+  "bottom-right": { top: "57.25%", left: "51.46%" },
 };
 
 export function HowItWorksSection() {
   return (
-    <section className="py-16 md:py-20 lg:py-24">
+    <section className="w-full bg-white pt-20 md:pt-32 lg:pt-[200px] pb-20 md:pb-32 lg:pb-[200px]">
       <div className="container-main">
-        <h2 className="text-2xl md:text-[30px] lg:text-[44px] font-semibold text-center leading-tight mb-10 md:mb-12 lg:mb-14">
-          Your Path to the <br className="hidden sm:block" />
-          Perfect Venue
-        </h2>
+        <div className="flex flex-col items-center gap-[10px] mb-16 md:mb-20 lg:mb-24 mx-auto max-w-[1200px]">
+          <h2 className="font-[600] text-[30px] md:text-[44px] leading-[38px] md:leading-[50px] text-black text-center">
+            Your Path to the <br className="hidden sm:block" />
+            Perfect Venue
+          </h2>
+          <p className="font-[400] text-[16px] md:text-[20px] leading-[24px] md:leading-[30px] text-black text-center max-w-[900px]">
+            Planning an event, production, or gathering shouldn&apos;t feel complicated. Our streamlined process connects you with the right venues and trusted professionals, taking the stress out of logistics so you can focus on what matters most  making it a success.
+          </p>
+        </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
-          <div className="space-y-8 md:space-y-10">
-            {STEPS.map((step) => {
-              const Icon = iconMap[step.icon as keyof typeof iconMap];
-              return (
-                <div key={step.number} className="flex gap-5 md:gap-6">
-                  <div className="flex flex-col items-center">
-                    <div className="h-10 w-10 md:h-12 md:w-12 rounded-full bg-primary flex items-center justify-center text-white font-bold text-sm md:text-base flex-shrink-0">
-                      {step.number}
-                    </div>
-                    {step.number < STEPS.length && (
-                      <div className="w-px flex-1 bg-border mt-2" />
-                    )}
+        <div className="flex flex-col md:flex-row items-center gap-10 md:gap-16 lg:gap-20">
+          <div className="w-full max-w-[515px] mx-auto md:mx-0 flex-shrink-0">
+            <div className="relative w-full aspect-[515/407]">
+              {collagePhotos.map((photo) => {
+                const pos = photoPositions[photo.position];
+                return (
+                  <div
+                    key={photo.id}
+                    className="absolute rounded-[20px] overflow-hidden"
+                    style={{
+                      top: pos.top,
+                      left: pos.left,
+                      width: "48.54%",
+                      height: "42.75%",
+                    }}
+                  >
+                    <Image
+                      src={photo.src}
+                      alt=""
+                      fill
+                      sizes="(max-width: 768px) 50vw, 250px"
+                      className="object-cover"
+                    />
                   </div>
-                  <div className="pb-8 md:pb-10">
-                    <div className="flex items-center gap-3 mb-2">
-                      {Icon && <Icon className="h-5 w-5 text-primary" />}
-                      <h3 className="text-lg md:text-xl lg:text-2xl font-semibold text-muted-dark">
-                        {step.title}
-                      </h3>
-                    </div>
-                    <p className="text-sm md:text-base text-muted leading-relaxed">
-                      {step.description}
-                    </p>
-                  </div>
+                );
+              })}
+
+              <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-10">
+                <div className="w-[131px] h-[131px] rounded-full bg-white border-[10px] border-white shadow-[0px_4px_24px_rgba(0,0,0,0.25)] flex items-center justify-center">
+                  <ImageIcon size={40} strokeWidth={1.5} className="text-[#FF5037]" />
                 </div>
-              );
-            })}
-          </div>
-
-          <div className="relative aspect-square max-w-[500px] mx-auto w-full">
-            <div className="grid grid-cols-2 gap-3 md:gap-4">
-              <div className="relative aspect-square rounded-[20px] overflow-hidden">
-                <Image
-                  src="/images/how-it-works/collage-1.jpg"
-                  alt="Venue search"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-square rounded-[20px] overflow-hidden mt-8 md:mt-12">
-                <Image
-                  src="/images/how-it-works/collage-2.jpg"
-                  alt="Venue comparison"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-square rounded-[20px] overflow-hidden -mt-4 md:-mt-8">
-                <Image
-                  src="/images/how-it-works/collage-3.jpg"
-                  alt="Venue booking"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover"
-                />
-              </div>
-              <div className="relative aspect-square rounded-[20px] overflow-hidden mt-4 md:mt-8">
-                <Image
-                  src="/images/how-it-works/collage-4.jpg"
-                  alt="Event services"
-                  fill
-                  sizes="(max-width: 1024px) 50vw, 25vw"
-                  className="object-cover"
-                />
               </div>
             </div>
+          </div>
 
-            <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 h-14 w-14 md:h-16 md:w-16 rounded-full bg-primary flex items-center justify-center shadow-lg z-10">
-              <CalendarCheck className="h-6 w-6 md:h-7 md:w-7 text-white" />
+          <div className="w-full max-w-[523px] mx-auto md:mx-0">
+            <div className="relative">
+              <div className="absolute left-[25px] top-[10px] bottom-[10px] w-0 border-l-2 border-dashed border-[#A2A2A2]" />
+              <div className="flex flex-col gap-[40px]">
+                {steps.map((step) => (
+                  <StepItem
+                    key={step.id}
+                    number={step.number}
+                    title={step.title}
+                    description={step.description}
+                  />
+                ))}
+              </div>
             </div>
           </div>
         </div>
