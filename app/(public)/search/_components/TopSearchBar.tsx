@@ -2,8 +2,22 @@
 
 import Image from "next/image";
 import { Search, Plus, Globe, User, Menu } from "lucide-react";
+import { useFilterStore } from "@/store/filterStore";
+import { LocationField } from "@/app/_components/LocationField";
+import { DateField } from "@/app/_components/DateField";
+import { GuestField } from "@/app/_components/GuestField";
 
 export function TopSearchBar() {
+  const filters = useFilterStore((s) => s.filters);
+  const setFilters = useFilterStore((s) => s.setFilters);
+
+  const handleSearch = () => {
+    setFilters({
+      location: filters.location || "London, UK",
+      page: 1,
+    });
+  };
+
   return (
     <header className="h-[88px] bg-white border-b border-neutral-200 shadow-[0_4px_10px_rgba(0,0,0,0.1)] flex items-center px-4 md:px-8">
       <div className="flex items-center justify-between w-full max-w-[1440px] mx-auto">
@@ -13,16 +27,34 @@ export function TopSearchBar() {
           </a>
 
           <div className="hidden md:flex items-center bg-white border border-neutral-300 rounded-full shadow-sm max-w-[430px] w-full">
-            <button className="flex-1 px-4 py-3 text-left text-[13px] font-[500] text-black truncate border-r border-neutral-200">
-              London, UK
-            </button>
-            <button className="flex-1 px-4 py-3 text-left text-[13px] font-[400] text-neutral-text-muted truncate border-r border-neutral-200">
-              Anytime
-            </button>
-            <button className="flex-1 px-4 py-3 text-left text-[13px] font-[400] text-neutral-text-muted truncate">
-              10-20 Guests
-            </button>
-            <button className="mr-1.5 h-9 w-9 rounded-[10px] bg-brand flex items-center justify-center flex-shrink-0" aria-label="Search">
+            <div className="flex-1 min-w-0">
+              <LocationField
+                value={filters.location}
+                onChange={(v) => setFilters({ location: v })}
+                variant="compact"
+              />
+            </div>
+            <div className="w-px h-8 bg-neutral-200" />
+            <div className="flex-1 min-w-0">
+              <DateField
+                value={filters.dateRange}
+                onChange={(v) => setFilters({ dateRange: v })}
+                variant="compact"
+              />
+            </div>
+            <div className="w-px h-8 bg-neutral-200" />
+            <div className="flex-1 min-w-0">
+              <GuestField
+                value={filters.guests}
+                onChange={(v) => setFilters({ guests: v })}
+                variant="compact"
+              />
+            </div>
+            <button
+              onClick={handleSearch}
+              className="mr-1.5 h-9 w-9 rounded-[10px] bg-brand flex items-center justify-center flex-shrink-0"
+              aria-label="Search"
+            >
               <Search size={16} className="text-white" />
             </button>
           </div>

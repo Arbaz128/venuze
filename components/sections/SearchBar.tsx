@@ -3,8 +3,14 @@
 import { useState } from "react";
 import { Search, MapPin, Calendar, Users, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
-import { Pill } from "@/components/ui/Pill";
 import { cn } from "@/lib/utils";
+import { useFilterStore } from "@/store/filterStore";
+import { useHeroSearchStore } from "@/store/heroSearchStore";
+import { useSearchViewStore } from "@/store/searchViewStore";
+import { LocationField } from "@/app/_components/LocationField";
+import { DateField } from "@/app/_components/DateField";
+import { GuestField } from "@/app/_components/GuestField";
+import { HeroSearchSheet } from "@/app/_components/HeroSearchSheet";
 
 type SearchTab = "venue" | "vendors";
 
@@ -14,6 +20,24 @@ interface SearchBarProps {
 
 export function SearchBar({ className }: SearchBarProps) {
   const [activeTab, setActiveTab] = useState<SearchTab>("venue");
+  const [mobileSheetOpen, setMobileSheetOpen] = useState(false);
+
+  const location = useHeroSearchStore((s) => s.location);
+  const dateRange = useHeroSearchStore((s) => s.dateRange);
+  const guests = useHeroSearchStore((s) => s.guests);
+  const setLocation = useHeroSearchStore((s) => s.setLocation);
+  const setDateRange = useHeroSearchStore((s) => s.setDateRange);
+  const setGuests = useHeroSearchStore((s) => s.setGuests);
+
+  const handleSearch = () => {
+    useFilterStore.getState().setFilters({
+      location: location || "London, UK",
+      dateRange,
+      guests,
+      page: 1,
+    });
+    useSearchViewStore.getState().showResults();
+  };
 
   return (
     <div className={cn("flex flex-col items-center gap-4", className)}>
@@ -47,31 +71,19 @@ export function SearchBar({ className }: SearchBarProps) {
       {/* Desktop: full pill */}
       <div className="hidden lg:flex items-center bg-white rounded-full shadow-lg px-6 w-full max-w-[1054px] h-auto min-h-[80px] lg:min-h-[100px]">
         <div className="flex-1 flex items-center gap-6">
-          <div className="flex-1 flex items-center gap-3 px-4 py-3">
-            <MapPin className="h-5 w-5 text-muted flex-shrink-0" />
-            <div className="flex-1">
-              <label className="block text-xs font-semibold text-muted-dark">Where</label>
-              <span className="block text-sm text-muted-dark">Search destinations</span>
-            </div>
+          <div className="flex-1 cursor-pointer">
+            <LocationField value={location} onChange={setLocation} variant="hero" />
           </div>
           <div className="w-px h-10 bg-border" />
-          <div className="flex-1 flex items-center gap-3 px-4 py-3">
-            <Calendar className="h-5 w-5 text-muted flex-shrink-0" />
-            <div className="flex-1">
-              <label className="block text-xs font-semibold text-muted-dark">When</label>
-              <span className="block text-sm text-muted-dark">Select date</span>
-            </div>
+          <div className="flex-1 cursor-pointer">
+            <DateField value={dateRange} onChange={setDateRange} variant="hero" />
           </div>
           <div className="w-px h-10 bg-border" />
-          <div className="flex-1 flex items-center gap-3 px-4 py-3">
-            <Users className="h-5 w-5 text-muted flex-shrink-0" />
-            <div className="flex-1">
-              <label className="block text-xs font-semibold text-muted-dark">Guest</label>
-              <span className="block text-sm text-muted-dark">Add guests</span>
-            </div>
+          <div className="flex-1 cursor-pointer">
+            <GuestField value={guests} onChange={setGuests} variant="hero" />
           </div>
         </div>
-        <Button variant="primary" size="lg" className="h-[61px] px-8 ml-4 rounded-full text-lg flex-shrink-0">
+        <Button variant="primary" size="lg" className="h-[61px] px-8 ml-4 rounded-full text-lg flex-shrink-0" onClick={handleSearch}>
           <Search className="h-5 w-5" />
           <span>Search</span>
         </Button>
@@ -80,22 +92,13 @@ export function SearchBar({ className }: SearchBarProps) {
       {/* Tablet: single row, compact */}
       <div className="hidden md:flex lg:hidden items-center bg-white rounded-full shadow-lg px-5 w-full max-w-[680px] h-[70px]">
         <div className="flex-1 flex items-center gap-4">
-          <div className="flex items-center gap-2 px-3">
-            <MapPin className="h-4 w-4 text-muted flex-shrink-0" />
-            <span className="text-sm text-muted-dark font-medium">Search destinations</span>
-          </div>
+          <LocationField value={location} onChange={setLocation} variant="compact" />
           <div className="w-px h-8 bg-border" />
-          <div className="flex items-center gap-2 px-3">
-            <Calendar className="h-4 w-4 text-muted flex-shrink-0" />
-            <span className="text-sm text-muted-dark font-medium">Select date</span>
-          </div>
+          <DateField value={dateRange} onChange={setDateRange} variant="compact" />
           <div className="w-px h-8 bg-border" />
-          <div className="flex items-center gap-2 px-3">
-            <Users className="h-4 w-4 text-muted flex-shrink-0" />
-            <span className="text-sm text-muted-dark font-medium">Add guests</span>
-          </div>
+          <GuestField value={guests} onChange={setGuests} variant="compact" />
         </div>
-        <Button variant="primary" className="h-[50px] w-[50px] rounded-full p-0 ml-3 flex-shrink-0">
+        <Button variant="primary" className="h-[50px] w-[50px] rounded-full p-0 ml-3 flex-shrink-0" onClick={handleSearch}>
           <Search className="h-5 w-5" />
         </Button>
       </div>
@@ -135,37 +138,39 @@ export function SearchBar({ className }: SearchBarProps) {
           </div>
 
           <div className="space-y-0">
-            <div className="flex items-center justify-between py-3 border-b border-[#E0E0E0]">
+            <button onClick={() => setMobileSheetOpen(true)} className="w-full flex items-center justify-between py-3 border-b border-[#E0E0E0]">
               <div className="flex items-center gap-3">
                 <MapPin className="h-4 w-4 text-muted" />
-                <span className="text-sm text-muted-dark">Where</span>
+                <span className="text-sm text-muted-dark">{location || "Where"}</span>
               </div>
               <ChevronDown className="h-4 w-4 text-muted" />
-            </div>
-            <div className="flex items-center justify-between py-3 border-b border-[#E0E0E0]">
+            </button>
+            <button onClick={() => setMobileSheetOpen(true)} className="w-full flex items-center justify-between py-3 border-b border-[#E0E0E0]">
               <div className="flex items-center gap-3">
                 <Calendar className="h-4 w-4 text-muted" />
-                <span className="text-sm text-muted-dark">When</span>
+                <span className="text-sm text-muted-dark">{dateRange || "When"}</span>
               </div>
               <ChevronDown className="h-4 w-4 text-muted" />
-            </div>
-            <div className="flex items-center justify-between py-3">
+            </button>
+            <button onClick={() => setMobileSheetOpen(true)} className="w-full flex items-center justify-between py-3">
               <div className="flex items-center gap-3">
                 <Users className="h-4 w-4 text-muted" />
-                <span className="text-sm text-muted-dark">Guest</span>
+                <span className="text-sm text-muted-dark">{guests || "Guest"}</span>
               </div>
               <ChevronDown className="h-4 w-4 text-muted" />
-            </div>
+            </button>
           </div>
         </div>
 
         <div className="px-4 pb-4">
-          <Button variant="primary" className="w-full h-[50px] rounded-lg text-base font-semibold">
+          <Button variant="primary" className="w-full h-[50px] rounded-lg text-base font-semibold" onClick={() => setMobileSheetOpen(true)}>
             <Search className="h-5 w-5" />
             Search
           </Button>
         </div>
       </div>
+
+      <HeroSearchSheet open={mobileSheetOpen} onClose={() => setMobileSheetOpen(false)} />
     </div>
   );
 }

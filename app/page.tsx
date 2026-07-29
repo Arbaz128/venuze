@@ -1,29 +1,15 @@
-import { Navbar } from "@/components/sections/Navbar";
-import { Hero } from "@/components/sections/Hero";
-import { CategoryCardsSection } from "@/components/sections/CategoryCardsSection";
-import { TrustedBySection } from "@/components/sections/TrustedBySection";
-import { HowItWorksSection } from "@/components/sections/HowItWorksSection";
-import { FeaturedVenuesSection } from "@/components/sections/FeaturedVenuesSection";
-import { VendorGridSection } from "@/components/sections/VendorGridSection";
-import { GrowBusinessCTA } from "@/components/sections/GrowBusinessCTA";
-import { DestinationsSection } from "@/components/sections/DestinationsSection";
-import { TurnVenueCTA } from "@/components/sections/TurnVenueCTA";
-import { Footer } from "@/components/sections/Footer";
+"use client";
+
+import { useSearchViewStore } from "@/store/searchViewStore";
+import { HeroSearchView } from "./_components/HeroSearchView";
+import { SearchResultsView } from "./_components/SearchResultsView";
 
 export default function HomePage() {
+  const view = useSearchViewStore((s) => s.view);
+
   return (
-    <>
-      <Navbar />
-      <Hero />
-      <CategoryCardsSection />
-      <TrustedBySection />
-      <HowItWorksSection />
-      <FeaturedVenuesSection />
-      <VendorGridSection />
-      <GrowBusinessCTA />
-      <DestinationsSection />
-      <TurnVenueCTA />
-      <Footer />
-    </>
+    <div className="transition-opacity duration-300">
+      {view === "landing" ? <HeroSearchView /> : <SearchResultsView />}
+    </div>
   );
 }
