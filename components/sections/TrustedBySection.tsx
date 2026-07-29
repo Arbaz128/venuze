@@ -56,7 +56,7 @@ const testimonials: TestimonialCardData[] = [
 export function TrustedBySection() {
   return (
     <section
-      className="w-full py-[100px] md:py-[120px] lg:py-[140px]"
+      className="w-full py-[100px] md:py-[120px] lg:py-20 px-6 md:px-12 lg:px-18"
       style={{
         background:
           "linear-gradient(270deg, #FFDBD8 0%, #FFF0CD 100%)",
@@ -65,13 +65,13 @@ export function TrustedBySection() {
       <div className="mx-auto px-4" style={{ maxWidth: "1200px" }}>
         <div className="flex flex-col items-center gap-[10px] mb-16 md:mb-20">
           <h2
-            className="font-[600] text-[44px] leading-[50px] text-black text-center"
+            className="font-[600] text-2xl md:text-3xl lg:text-4xl text-black text-center"
             style={{ maxWidth: "1200px" }}
           >
             Trusted by Event Creators Who Demand Excellence
           </h2>
           <p
-            className="font-[400] text-[20px] leading-[30px] text-black text-center"
+            className="font-[400] text-base md:text-lg leading-[26px] md:leading-[30px] text-black text-center"
             style={{ maxWidth: "961px" }}
           >
             Join thousands of planners and hosts who love our seamless
@@ -79,9 +79,9 @@ export function TrustedBySection() {
           </p>
         </div>
 
-        <div className="flex flex-wrap justify-center gap-6 mb-16 md:mb-20">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 md:gap-6 mb-16 md:mb-20">
           {statCards.map((stat) => (
-            <div key={stat.id} className="w-[301px] max-sm:w-full">
+            <div key={stat.id} className="w-full">
               <StatCard
                 value={stat.value}
                 label={stat.label}
@@ -92,7 +92,7 @@ export function TrustedBySection() {
           ))}
         </div>
 
-        <div className="flex flex-col md:flex-row gap-6">
+        <div className="flex flex-col md:flex-row gap-5">
           {testimonials.map((t) => (
             <div key={t.id} className="flex-1 min-w-0">
               <TestimonialCard testimonial={t} />

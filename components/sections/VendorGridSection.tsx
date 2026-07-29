@@ -3,12 +3,14 @@ import { VENDORS } from "@/lib/constants";
 
 export function VendorGridSection() {
   return (
-    <section className="py-16 md:py-20 lg:py-24">
-      <div className="container-main">
-        <h2 className="text-2xl md:text-[30px] lg:text-[44px] font-semibold text-center leading-tight mb-10 md:mb-12 lg:mb-14">
-          Complete Your Event with <br className="hidden sm:block" />
-          our Trusted Vendors
+    <section className="py-16 pb-20 md:py-20 md:pb-24 lg:py-24 lg:pb-70 bg-[#FDF1D2]">
+      <div className="container-main px-5 lg:px-18">
+        <h2 className="text-2xl md:text-[30px] lg:text-[44px] font-semibold text-center leading-tight mb-10 md:mb-12 lg:mb-4">
+          Complete Your Event with our Trusted Vendors
         </h2>
+        <p className="text-center text-muted-foreground mb-10 md:mb-12 lg:mb-14">
+          Venues are just the beginning. Discover caterers, decorators, photographers, entertainment, and more all in one place, ready to bring your event project to life.
+        </p>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 md:gap-5 lg:gap-6">
           {VENDORS.map((vendor) => (
@@ -28,9 +30,6 @@ export function VendorGridSection() {
                 <h3 className="text-white font-semibold text-xl md:text-2xl lg:text-3xl mb-1">
                   {vendor.title}
                 </h3>
-                <p className="text-white/80 text-sm md:text-base">
-                  {vendor.venueCount} Vendors
-                </p>
               </div>
             </div>
           ))}

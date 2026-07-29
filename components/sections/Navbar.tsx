@@ -21,7 +21,7 @@ export function Navbar() {
           <Button
             variant="white"
             size="pill"
-            className="hidden md:inline-flex h-10 px-4 lg:px-5 shadow-md text-xs lg:text-sm"
+            className="hidden md:inline-flex h-10 px-1 rounded-lg lg:px-5 shadow-md text-xs lg:text-sm"
           >
             <span className="hidden lg:inline">Add your listing</span>
             <span className="lg:hidden">Listing</span>
@@ -30,13 +30,13 @@ export function Navbar() {
 
           <div className="hidden md:flex items-center gap-2">
             <div className="h-10 px-3 lg:px-4 bg-white dark:bg-dark-card rounded-[10px] flex items-center gap-2 shadow-md cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors">
-              <Globe className="h-4 w-4 text-muted" />
-              <span className="text-xs lg:text-sm font-medium text-muted-dark">EN</span>
+              <span className="text-xs lg:text-sm font-medium text-primary">EN</span>
+              <ChevronDown className="h-3 w-3 lg:h-4 lg:w-4" />
             </div>
           </div>
 
           <div className="h-9 w-9 md:h-10 md:w-10 lg:h-[44px] lg:w-[44px] bg-white dark:bg-dark-card rounded-[10px] flex items-center justify-center shadow-md cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors">
-            <User className="h-4 w-4 md:h-5 md:w-5 text-muted-dark" />
+            <User className="h-4 w-4 md:h-5 md:w-5 text-primary" />
           </div>
 
           <button
