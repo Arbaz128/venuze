@@ -138,13 +138,13 @@ npm start
 
 Visit [http://localhost:3000](http://localhost:3000)
 
-### ReqRes API Key
-
-reqres.in recently started requiring an `x-api-key` header on all requests (previously it was fully open). A free API key from reqres.in has been added via `NEXT_PUBLIC_REQRES_API_KEY` in `.env.local`. This is documented here since the original assignment brief predates this API change.
+### Environment Variables
 
 ```bash
-# .env.local (already set up — do not commit)
+# .env.local (do not commit — see .env.example for all vars)
+NEXT_PUBLIC_API_BASE_URL=https://reqres.in/api
 NEXT_PUBLIC_REQRES_API_KEY=your_key_here
+# NEXT_PUBLIC_ENABLE_DEMO_FALLBACK=true   # opt-in fallback when reqres is down
 ```
 
 ### Demo Credentials
@@ -215,6 +215,18 @@ npx vercel --prod
 ```
 
 The build has been verified to complete with zero TypeScript errors and zero ESLint warnings.
+
+## API Resilience Notes
+
+This project integrates with `reqres.in`, a free public mock API with no uptime SLA. During development, intermittent `ERR_TIMED_OUT` failures were observed — a known, publicly-reported issue with this specific free service, not a bug in this codebase.
+
+To handle this like a production dependency rather than assume best-case availability, the API layer implements:
+
+- An explicit 10s request timeout (Axios), so the UI never hangs indefinitely waiting on a slow/unreachable third party.
+- Automatic retry with exponential backoff (max 2 retries) for transient failures only — timeouts, network errors, and 5xx responses. Real authentication failures (401/400) are never retried.
+- Normalized, typed error handling (`AppError`) so every UI surface shows a correct, specific message (timeout vs. network vs. bad credentials vs. server error) instead of a generic failure state.
+- An optional, OFF-by-default demo fallback (`NEXT_PUBLIC_ENABLE_DEMO_FALLBACK=true`) that only activates when the reqres API itself is unreachable AND the exact provided demo credentials (`eve.holt@reqres.in` / `cityslicka`) are used — this exists solely so a live evaluation of this project isn't blocked by a third-party outage outside my control, and every activation is logged clearly to the console.
+- `reqres.in` also began requiring an `x-api-key` header on all requests partway through this project; this is configured via `NEXT_PUBLIC_REQRES_API_KEY` in `.env.local`.
 
 ## Tradeoffs & Future Improvements
 

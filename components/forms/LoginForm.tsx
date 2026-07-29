@@ -2,14 +2,19 @@
 
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { Mail, Lock, Eye, EyeOff, AlertCircle } from "lucide-react";
-import { useState } from "react";
+import { Mail, Lock, Eye, EyeOff, AlertCircle, RefreshCw } from "lucide-react";
+import { useState, useRef, useEffect } from "react";
 import { loginSchema, type LoginFormValues } from "@/lib/validations";
 import { useLogin } from "@/hooks/useLogin";
 import { cn } from "@/lib/utils";
+import type { AppError } from "@/lib/errors";
 
 export function LoginForm() {
   const [showPassword, setShowPassword] = useState(false);
+  const [isSlow, setIsSlow] = useState(false);
+  const slowTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const lastValuesRef = useRef<LoginFormValues | null>(null);
+
   const loginMutation = useLogin();
 
   const {
@@ -21,21 +26,57 @@ export function LoginForm() {
     mode: "onBlur",
   });
 
-  const apiError =
-    loginMutation.isError && !loginMutation.isPending
-      ? (loginMutation.error as { response?: { data?: { error?: string } } })
-          ?.response?.data?.error
-      : null;
+  const isPending = loginMutation.isPending;
+  const error = loginMutation.error as AppError | null;
+
+  useEffect(() => {
+    if (isPending) {
+      slowTimerRef.current = setTimeout(() => setIsSlow(true), 3000);
+    } else {
+      if (slowTimerRef.current) clearTimeout(slowTimerRef.current);
+      setIsSlow(false);
+    }
+    return () => {
+      if (slowTimerRef.current) clearTimeout(slowTimerRef.current);
+    };
+  }, [isPending]);
+
+  const handleTryAgain = () => {
+    if (lastValuesRef.current) {
+      loginMutation.reset();
+      loginMutation.mutate(lastValuesRef.current);
+    }
+  };
+
+  const showRetry = error && (error.kind === "TIMEOUT" || error.kind === "NETWORK" || error.kind === "SERVER");
 
   return (
-    <form onSubmit={handleSubmit((data) => loginMutation.mutate(data))} noValidate>
-      {apiError && (
+    <form
+      onSubmit={handleSubmit((data) => {
+        lastValuesRef.current = data;
+        loginMutation.mutate(data);
+      })}
+      noValidate
+    >
+      {error && (
         <div
           className="flex items-start gap-2.5 bg-red-50 border border-red-200 rounded-[10px] px-4 py-3 mb-5"
           role="alert"
         >
           <AlertCircle size={16} className="text-red-500 mt-0.5 flex-shrink-0" />
-          <p className="text-[13px] font-[400] text-red-600">{apiError}</p>
+          <div className="flex-1 min-w-0">
+            <p className="text-[13px] font-[400] text-red-600">{error.message}</p>
+            {showRetry && (
+              <button
+                type="button"
+                onClick={handleTryAgain}
+                className="inline-flex items-center gap-1 mt-2 text-[12px] font-[500] text-red-700 hover:text-red-800 underline transition-colors"
+              >
+                <RefreshCw size={12} />
+                Try Again
+              </button>
+            )}
+          </div>
         </div>
       )}
 
@@ -123,7 +164,13 @@ export function LoginForm() {
         )}
       </button>
 
-      <p className="text-[11px] text-center text-neutral-text-muted mt-5">
+      {isSlow && (
+        <p className="text-[11px] font-[400] text-amber-600 text-center mt-2 animate-pulse">
+          This is taking longer than usual — the demo server can be slow.
+        </p>
+      )}
+
+      <p className="text-[11px] text-center text-neutral-text-muted mt-3">
         Demo: eve.holt@reqres.in / cityslicka
       </p>
     </form>
