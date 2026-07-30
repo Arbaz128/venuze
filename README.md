@@ -2,7 +2,7 @@
 
 A production-quality event venue discovery and booking platform built with Next.js 16 (App Router), TypeScript, and Tailwind CSS v4.
 
-**Live Demo:** https://venuze.vercel.app (or your Vercel URL)
+**Live Demo:** https://venuze-eight.vercel.app
 
 ---
 
