@@ -5,7 +5,12 @@ import { useFilterStore } from "@/store/filterStore";
 import { ListingCard, ListingCardSkeleton } from "./ListingCard";
 import { EmptyState } from "./EmptyState";
 
-export function ListingGrid() {
+interface ListingGridProps {
+  activeListingId: string | null;
+  onListingSelect: (id: string | null) => void;
+}
+
+export function ListingGrid({ activeListingId, onListingSelect }: ListingGridProps) {
   const { data, isLoading, isError, refetch } = useListingsQuery();
   const isMapView = useFilterStore((s) => s.isMapView);
 
@@ -43,7 +48,7 @@ export function ListingGrid() {
   return (
     <div className={gridClasses}>
       {data.items.map((listing) => (
-        <ListingCard key={listing.id} listing={listing} />
+        <ListingCard key={listing.id} listing={listing} isActive={listing.id === activeListingId} onSelect={onListingSelect} />
       ))}
     </div>
   );

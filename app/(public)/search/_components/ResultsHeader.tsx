@@ -1,6 +1,6 @@
 "use client";
 
-import { X, Map, List } from "lucide-react";
+import { Map, List } from "lucide-react";
 import { useFilterStore } from "@/store/filterStore";
 import { cn } from "@/lib/utils";
 
@@ -11,36 +11,8 @@ interface ResultsHeaderProps {
 export function ResultsHeader({ total }: ResultsHeaderProps) {
   const filters = useFilterStore((s) => s.filters);
   const setFilters = useFilterStore((s) => s.setFilters);
-  const toggleVenueType = useFilterStore((s) => s.toggleVenueType);
-  const toggleOccasion = useFilterStore((s) => s.toggleOccasion);
   const toggleMapView = useFilterStore((s) => s.toggleMapView);
   const isMapView = useFilterStore((s) => s.isMapView);
-  const resetFilters = useFilterStore((s) => s.resetFilters);
-
-  const activeChips: { label: string; onRemove: () => void }[] = [];
-
-  if (filters.verifiedOnly) {
-    activeChips.push({
-      label: "Verified",
-      onRemove: () => setFilters({ verifiedOnly: false }),
-    });
-  }
-
-  filters.venueTypes.forEach((t) => {
-    activeChips.push({
-      label: t,
-      onRemove: () => toggleVenueType(t),
-    });
-  });
-
-  filters.occasions.forEach((o) => {
-    activeChips.push({
-      label: o,
-      onRemove: () => toggleOccasion(o),
-    });
-  });
-
-  const hasActiveFilters = activeChips.length > 0;
 
   return (
     <div className="flex items-center justify-between px-4 md:px-8 py-3 border-b border-neutral-200 dark:border-neutral-300">
@@ -49,29 +21,6 @@ export function ResultsHeader({ total }: ResultsHeaderProps) {
           {total} {filters.category === "all" ? "spaces" : filters.category} near{" "}
           {filters.location || "London, UK"}
         </span>
-
-        {activeChips.length > 0 && (
-          <div className="flex items-center gap-2 overflow-x-auto scrollbar-hide">
-            {activeChips.map((chip) => (
-              <button
-                key={chip.label}
-                onClick={chip.onRemove}
-                className="flex items-center gap-1 bg-neutral-100 dark:bg-neutral-300 rounded-full px-3 py-1 text-[11px] font-[500] text-neutral-text-dark dark:text-dark-text whitespace-nowrap hover:bg-neutral-200 dark:hover:bg-neutral-400 transition-colors"
-              >
-                {chip.label}
-                <X size={12} />
-              </button>
-            ))}
-            {hasActiveFilters && (
-              <button
-                onClick={resetFilters}
-                className="text-[11px] font-[500] text-brand whitespace-nowrap hover:underline"
-              >
-                Clear filters
-              </button>
-            )}
-          </div>
-        )}
       </div>
 
       <div className="flex items-center gap-3">

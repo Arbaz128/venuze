@@ -15,9 +15,11 @@ import type { Listing } from "@/types/listing";
 
 interface ListingCardProps {
   listing: Listing;
+  isActive?: boolean;
+  onSelect?: (id: string | null) => void;
 }
 
-export function ListingCard({ listing }: ListingCardProps) {
+export function ListingCard({ listing, isActive, onSelect }: ListingCardProps) {
   const [favorited, setFavorited] = useState(listing.isFavorited);
   const [imgIndex, setImgIndex] = useState(0);
   const [imgError, setImgError] = useState(false);
@@ -25,7 +27,10 @@ export function ListingCard({ listing }: ListingCardProps) {
   const hasMultipleImages = listing.images.length > 1;
 
   return (
-    <div className="w-full max-w-[300px] mx-auto self-start h-fit rounded-2xl xl:mx-0 group transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+    <div
+      className={`w-full max-w-[300px] mx-auto self-start h-fit rounded-2xl xl:mx-0 group transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg cursor-pointer ${isActive ? "ring-2 ring-brand shadow-lg -translate-y-0.5" : ""}`}
+      onClick={() => onSelect?.(listing.id)}
+    >
       <div className="relative aspect-[6/5] bg-neutral-200 dark:bg-neutral-300 rounded-t-[20px] overflow-hidden">
         {!imgError ? (
           <Image
@@ -47,7 +52,10 @@ export function ListingCard({ listing }: ListingCardProps) {
         )}
 
         <button
-          onClick={() => setFavorited(!favorited)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setFavorited(!favorited);
+          }}
           className="absolute top-3 right-14 bg-black/50 backdrop-blur-sm rounded-full w-[30px] h-[30px] flex items-center justify-center transition-colors hover:bg-black/70"
           aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
         >
@@ -59,7 +67,10 @@ export function ListingCard({ listing }: ListingCardProps) {
         </button>
 
         <button
-          onClick={() => setFavorited(!favorited)}
+          onClick={(e) => {
+            e.stopPropagation();
+            setFavorited(!favorited);
+          }}
           className="absolute top-3 right-3 bg-black/50 backdrop-blur-sm rounded-full w-[30px] h-[30px] flex items-center justify-center transition-colors hover:bg-black/70"
           aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
         >
@@ -84,7 +95,7 @@ export function ListingCard({ listing }: ListingCardProps) {
             </div>
             <button
               onClick={(e) => {
-                e.preventDefault();
+                e.stopPropagation();
                 setImgIndex((prev) =>
                   prev === 0 ? listing.images.length - 1 : prev - 1
                 );
@@ -96,7 +107,7 @@ export function ListingCard({ listing }: ListingCardProps) {
             </button>
             <button
               onClick={(e) => {
-                e.preventDefault();
+                e.stopPropagation();
                 setImgIndex((prev) =>
                   prev === listing.images.length - 1 ? 0 : prev + 1
                 );
@@ -152,6 +163,7 @@ export function ListingCard({ listing }: ListingCardProps) {
           </span>
           <Link
             href={`/search/${listing.id}`}
+            onClick={(e) => e.stopPropagation()}
             className="inline-flex items-center gap-1 bg-white dark:bg-dark-card border border-primary text-primary rounded-[10px] px-4 py-3 text-[11px] font-[550] leading-none hover:bg-brand hover:text-white transition-colors"
           >
             View details

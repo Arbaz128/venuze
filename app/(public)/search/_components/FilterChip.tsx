@@ -22,7 +22,7 @@ export function FilterChip({ label, selected, onClick, size = "md" }: FilterChip
           : "px-4 py-2.5 text-[13px]",
         selected
           ? "bg-brand text-white border-brand"
-          : "bg-neutral-50 text-neutral-text-chip border-transparent hover:border-neutral-300"
+          : "bg-neutral-100 dark:bg-neutral-150 text-neutral-text-chip border-neutral-200 dark:border-neutral-300 hover:bg-neutral-200 dark:hover:bg-neutral-300"
       )}
     >
       {label}

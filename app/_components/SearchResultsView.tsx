@@ -1,10 +1,12 @@
 "use client";
 
+import { useState } from "react";
 import { useFilterStore } from "@/store/filterStore";
 import { useListingsQuery } from "@/hooks/useListingsQuery";
 import { TopSearchBar } from "@/app/(public)/search/_components/TopSearchBar";
 import { CategoryTabs } from "@/app/(public)/search/_components/CategoryTabs";
 import { ToolbarSecondary } from "@/app/(public)/search/_components/ToolbarSecondary";
+import { ActiveFilterChips } from "@/app/(public)/search/_components/ActiveFilterChips";
 import { ResultsHeader } from "@/app/(public)/search/_components/ResultsHeader";
 import { ListingGrid } from "@/app/(public)/search/_components/ListingGrid";
 import { MapPanel } from "@/app/(public)/search/_components/MapPanel";
@@ -22,11 +24,14 @@ export function SearchResultsView() {
   const total = data?.total ?? 0;
   const listings = data?.items ?? [];
 
+  const [activeListingId, setActiveListingId] = useState<string | null>(null);
+
   return (
     <div className="min-h-screen bg-white dark:bg-dark-bg flex flex-col">
       
       <TopSearchBar />
       <ToolbarSecondary />
+      <ActiveFilterChips />
       <CategoryTabs
         active={filters.category}
         onChange={(category) => setFilters({ category })}
@@ -35,7 +40,7 @@ export function SearchResultsView() {
 
       <div className="flex-1 flex">
         <div className={`flex-1 ${isMapView ? "hidden xl:block" : ""}`}>
-          <ListingGrid />  
+          <ListingGrid activeListingId={activeListingId} onListingSelect={setActiveListingId} />  
         </div>
 
         {isMapView && (
@@ -53,7 +58,7 @@ export function SearchResultsView() {
                 Show list
               </button>
             </div>
-            <MapPanel listings={listings} onClose={toggleMapView} />
+            <MapPanel listings={listings} activeListingId={activeListingId} onListingSelect={setActiveListingId} onClose={toggleMapView} />
           </div>
         )}
 
@@ -62,7 +67,7 @@ export function SearchResultsView() {
             className="hidden xl:block xl:sticky xl:flex-shrink-0 xl:w-[421px] xl:border-l xl:border-neutral-200 dark:xl:border-neutral-300"
             style={{ top: STICKY_OFFSET, height: `calc(100vh - ${STICKY_OFFSET}px)` }}
           >
-            <MapPanel listings={listings} />
+            <MapPanel listings={listings} activeListingId={activeListingId} onListingSelect={setActiveListingId} />
           </div>
         )}
       </div>
