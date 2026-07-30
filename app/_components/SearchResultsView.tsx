@@ -24,17 +24,18 @@ export function SearchResultsView() {
 
   return (
     <div className="min-h-screen bg-white dark:bg-dark-bg flex flex-col">
+      
       <TopSearchBar />
+      <ToolbarSecondary />
       <CategoryTabs
         active={filters.category}
         onChange={(category) => setFilters({ category })}
       />
-      <ToolbarSecondary />
       <ResultsHeader total={total} />
 
       <div className="flex-1 flex">
         <div className={`flex-1 ${isMapView ? "hidden xl:block" : ""}`}>
-          <ListingGrid />
+          <ListingGrid />  
         </div>
 
         {isMapView && (

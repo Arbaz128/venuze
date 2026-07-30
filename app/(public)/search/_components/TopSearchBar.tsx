@@ -1,7 +1,9 @@
 "use client";
 
 import Image from "next/image";
-import { Search, Plus, Globe, User, Menu } from "lucide-react";
+import Link from "next/link";
+import { Search, Plus, Globe, User, Menu, ChevronDown } from "lucide-react";
+import { Button } from "@/components/ui/Button";
 import { useFilterStore } from "@/store/filterStore";
 import { LocationField } from "@/app/_components/LocationField";
 import { DateField } from "@/app/_components/DateField";
@@ -20,13 +22,13 @@ export function TopSearchBar() {
 
   return (
     <header className="h-[88px] bg-white dark:bg-dark-card border-b border-neutral-200 dark:border-neutral-300 shadow-[0_4px_10px_rgba(0,0,0,0.1)] dark:shadow-[0_4px_10px_rgba(0,0,0,0.3)] flex items-center px-4 md:px-8">
-      <div className="flex items-center justify-between w-full max-w-[1440px] mx-auto">
-        <div className="flex items-center gap-6">
-          <a href="/" className="flex items-center flex-shrink-0">
-            <Image src="/images/logo.svg" alt="Venuze" width={110} height={20} className="h-5 w-auto" />
-          </a>
+      <div className="grid grid-cols-[auto_1fr_auto] items-center w-full max-w-[1440px] mx-auto gap-4">
+        <Link href="/" className="flex items-center flex-shrink-0">
+          <Image src="/images/logo 2.svg" alt="Venuze" width={110} height={20} className="h-5 w-auto" />
+        </Link>
 
-          <div className="hidden md:flex items-center bg-white dark:bg-dark-bg border border-neutral-300 dark:border-neutral-300 rounded-full shadow-sm max-w-[430px] w-full">
+        <div className="hidden md:flex justify-center">
+          <div className="flex items-center bg-white dark:bg-dark-bg rounded-xl shadow-md max-w-[430px] w-full">
             <div className="flex-1 min-w-0">
               <LocationField
                 value={filters.location}
@@ -60,20 +62,33 @@ export function TopSearchBar() {
           </div>
         </div>
 
-        <div className="flex items-center gap-3">
-          <button className="hidden md:flex items-center gap-1.5 bg-white dark:bg-dark-card border border-neutral-300 rounded-full px-4 py-2 text-[13px] font-[500] text-neutral-text-muted hover:shadow-sm transition-shadow">
-            <Plus size={14} />
-            Add your listing
-          </button>
-          <button className="hidden md:flex items-center gap-1.5 bg-white dark:bg-dark-card border border-neutral-300 rounded-full px-3 py-2 text-[13px] font-[500] text-neutral-text-muted hover:shadow-sm transition-shadow">
-            <Globe size={14} />
-            EN
-          </button>
-          <button className="hidden md:flex h-9 w-9 items-center justify-center rounded-full bg-white dark:bg-dark-card border border-neutral-300 hover:shadow-sm transition-shadow" aria-label="Profile">
-            <User size={16} className="text-neutral-text-muted" />
-          </button>
-          <button className="md:hidden h-9 w-9 flex items-center justify-center rounded-full bg-white dark:bg-dark-card border border-neutral-300" aria-label="Menu">
-            <Menu size={18} className="text-neutral-text-muted" />
+        <div className="flex items-center gap-2 md:gap-3 justify-self-end">
+          <Button
+            variant="white"
+            size="pill"
+            className="hidden md:inline-flex h-10 px-1 rounded-lg lg:px-5 shadow-md text-xs lg:text-sm"
+          >
+            <span className="hidden lg:inline">Add your listing</span>
+            <span className="lg:hidden">Listing</span>
+            <ChevronDown className="h-3 w-3 lg:h-4 lg:w-4" />
+          </Button>
+
+          <div className="hidden md:flex items-center gap-2">
+            <div className="h-10 px-3 lg:px-4 bg-white dark:bg-dark-card rounded-[10px] flex items-center gap-2 shadow-md cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors">
+              <span className="text-xs lg:text-sm font-medium text-primary">EN</span>
+              <ChevronDown className="h-3 w-3 lg:h-4 lg:w-4" />
+            </div>
+          </div>
+
+          <div className="h-9 w-9 md:h-10 md:w-10 lg:h-[44px] lg:w-[44px] bg-white dark:bg-dark-card rounded-[10px] flex items-center justify-center shadow-md cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors">
+            <User className="h-4 w-4 md:h-5 md:w-5 text-primary" />
+          </div>
+
+          <button
+            className="md:hidden h-9 w-9 bg-white dark:bg-dark-card rounded-[5px] flex items-center justify-center shadow-md"
+            aria-label="Toggle menu"
+          >
+            <Menu className="h-5 w-5 text-muted-dark" />
           </button>
         </div>
       </div>

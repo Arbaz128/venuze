@@ -9,6 +9,8 @@ export function ListingGrid() {
   const { data, isLoading, isError, refetch } = useListingsQuery();
   const isMapView = useFilterStore((s) => s.isMapView);
 
+  const gridClasses = "grid gap-6 md:gap-8 px-4 md:px-8 py-6 grid-cols-1 sm:grid-cols-2 xl:grid-cols-3";
+
   if (isError) {
     return (
       <div className="flex flex-col items-center justify-center py-20 text-neutral-text-muted" role="alert">
@@ -26,11 +28,7 @@ export function ListingGrid() {
 
   if (isLoading && !data) {
     return (
-      <div
-        className={`grid gap-6 md:gap-8 px-4 md:px-8 py-6 ${
-          isMapView ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
-        }`}
-      >
+      <div className={gridClasses}>
         {Array.from({ length: 6 }).map((_, i) => (
           <ListingCardSkeleton key={i} />
         ))}
@@ -43,11 +41,7 @@ export function ListingGrid() {
   }
 
   return (
-    <div
-      className={`grid gap-6 md:gap-8 px-4 md:px-8 py-6 ${
-        isMapView ? "grid-cols-1 sm:grid-cols-2" : "grid-cols-1 sm:grid-cols-2 xl:grid-cols-3"
-      }`}
-    >
+    <div className={gridClasses}>
       {data.items.map((listing) => (
         <ListingCard key={listing.id} listing={listing} />
       ))}

@@ -9,7 +9,7 @@ import {
   Users,
   Maximize2,
   ParkingCircle,
-  ArrowRight,
+  Share,
 } from "lucide-react";
 import type { Listing } from "@/types/listing";
 
@@ -25,7 +25,7 @@ export function ListingCard({ listing }: ListingCardProps) {
   const hasMultipleImages = listing.images.length > 1;
 
   return (
-    <div className="w-full max-w-[300px] mx-auto xl:mx-0 group transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
+    <div className="w-full max-w-[300px] mx-auto self-start h-fit rounded-2xl xl:mx-0 group transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg">
       <div className="relative aspect-[6/5] bg-neutral-200 dark:bg-neutral-300 rounded-t-[20px] overflow-hidden">
         {!imgError ? (
           <Image
@@ -45,6 +45,18 @@ export function ListingCard({ listing }: ListingCardProps) {
             Verified
           </div>
         )}
+
+        <button
+          onClick={() => setFavorited(!favorited)}
+          className="absolute top-3 right-14 bg-black/50 backdrop-blur-sm rounded-full w-[30px] h-[30px] flex items-center justify-center transition-colors hover:bg-black/70"
+          aria-label={favorited ? "Remove from favorites" : "Add to favorites"}
+        >
+          <Share
+            size={15}
+            strokeWidth={1.5}
+            className="text-white"
+          />
+        </button>
 
         <button
           onClick={() => setFavorited(!favorited)}
@@ -98,7 +110,7 @@ export function ListingCard({ listing }: ListingCardProps) {
         )}
       </div>
 
-      <div className="bg-white dark:bg-dark-card border border-neutral-border dark:border-neutral-300 rounded-b-[20px] shadow-[0_2px_3px_rgba(0,0,0,0.05)] dark:shadow-none p-5">
+      <div className="bg-white dark:bg-dark-card rounded-b-2xl shadow-[0_2px_3px_rgba(0,0,0,0.15)] dark:shadow-none p-5">
         <h3 className="font-[600] text-[16px] leading-[24px] text-black dark:text-dark-text line-clamp-2 mb-2" style={{ letterSpacing: "-0.03em" }}>
           {listing.title}
         </h3>
@@ -110,24 +122,24 @@ export function ListingCard({ listing }: ListingCardProps) {
           </span>
         </div>
 
-        <div className="flex items-center gap-2 flex-wrap mb-2">
-          <span className="inline-flex items-center gap-1 bg-neutral-50 dark:bg-neutral-300 rounded-full px-3 py-1 text-[10px] font-[500] text-neutral-text-dark dark:text-dark-text">
-            <Users size={12} />
+        <div className="flex items-center gap-3 flex-wrap mb-2">
+          <span className="inline-flex items-center gap-1 text-[12px] font-[400] text-black bg-black/4 px-2 py-1 rounded-2xl">
+            <Users size={14} className="text-black" />
             {listing.capacity}+
           </span>
-          <span className="inline-flex items-center gap-1 bg-neutral-50 dark:bg-neutral-300 rounded-full px-3 py-1 text-[10px] font-[500] text-neutral-text-dark dark:text-dark-text">
-            <Maximize2 size={12} />
+          <span className="inline-flex items-center gap-1 text-[12px] font-[400] text-black bg-black/4 px-2 py-1 rounded-2xl">
+            <Maximize2 size={14} className="text-black" />
             {listing.areaSqFt.toLocaleString()} sq ft
           </span>
           {listing.hasFreeParking && (
-            <span className="inline-flex items-center gap-1 bg-neutral-50 dark:bg-neutral-300 rounded-full px-3 py-1 text-[10px] font-[500] text-neutral-text-dark dark:text-dark-text">
-              <ParkingCircle size={12} />
+            <span className="inline-flex items-center gap-1 text-[12px] font-[400] text-black bg-black/4 px-2 py-1 rounded-2xl">
+              <ParkingCircle size={14} className="text-black" />
               Free parking
             </span>
           )}
         </div>
 
-        <span className="inline-flex items-center bg-neutral-50 dark:bg-neutral-300 rounded-full px-3 py-1 text-[10px] font-[500] text-neutral-text-dark dark:text-dark-text mb-3">
+        <span className="inline-flex items-center text-[12px] font-[400] text-black  bg-black/4 px-2 py-1 rounded-2xl dark:text-dark-text mb-3">
           +{listing.amenitiesCount} more
         </span>
 
@@ -140,10 +152,9 @@ export function ListingCard({ listing }: ListingCardProps) {
           </span>
           <Link
             href={`/search/${listing.id}`}
-            className="inline-flex items-center gap-1 bg-brand text-white rounded-[10px] px-4 py-2 text-[11px] font-[500] leading-none hover:opacity-90 transition-opacity"
+            className="inline-flex items-center gap-1 bg-white dark:bg-dark-card border border-primary text-primary rounded-[10px] px-4 py-3 text-[11px] font-[550] leading-none hover:bg-brand hover:text-white transition-colors"
           >
             View details
-            <ArrowRight size={12} strokeWidth={2} />
           </Link>
         </div>
       </div>
@@ -159,9 +170,9 @@ export function ListingCardSkeleton() {
         <div className="h-4 bg-neutral-200 dark:bg-neutral-300 rounded animate-pulse w-3/4" />
         <div className="h-3 bg-neutral-200 dark:bg-neutral-300 rounded animate-pulse w-1/2" />
         <div className="flex gap-2">
-          <div className="h-6 bg-neutral-200 dark:bg-neutral-300 rounded-full animate-pulse w-16" />
-          <div className="h-6 bg-neutral-200 dark:bg-neutral-300 rounded-full animate-pulse w-20" />
-          <div className="h-6 bg-neutral-200 dark:bg-neutral-300 rounded-full animate-pulse w-14" />
+          <div className="h-4 bg-neutral-200 dark:bg-neutral-300 rounded animate-pulse w-16" />
+          <div className="h-4 bg-neutral-200 dark:bg-neutral-300 rounded animate-pulse w-20" />
+          <div className="h-4 bg-neutral-200 dark:bg-neutral-300 rounded animate-pulse w-14" />
         </div>
         <div className="h-4 bg-neutral-200 dark:bg-neutral-300 rounded animate-pulse w-1/3" />
         <div className="h-px bg-neutral-200 dark:bg-neutral-300" />
