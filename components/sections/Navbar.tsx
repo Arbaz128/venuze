@@ -54,74 +54,8 @@ export function Navbar() {
             </div>
           </div>
 
-<<<<<<< HEAD
           <div className="h-9 w-9 md:h-10 md:w-10 lg:h-[44px] lg:w-[44px] bg-white dark:bg-dark-card rounded-[10px] flex items-center justify-center shadow-md cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors">
             <User className="h-4 w-4 md:h-5 md:w-5 text-primary" />
-=======
-          <div ref={profileRef} className="relative">
-            <button
-              onClick={() => setProfileOpen((prev) => !prev)}
-              className="h-9 w-9 md:h-10 md:w-10 lg:h-[44px] lg:w-[44px] bg-white dark:bg-dark-card rounded-[10px] flex items-center justify-center shadow-md cursor-pointer hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors"
-              aria-label="Account menu"
-              aria-expanded={profileOpen}
-            >
-              {isAuthenticated ? (
-                <div className="h-6 w-6 md:h-7 md:w-7 lg:h-8 lg:w-8 rounded-full bg-brand flex items-center justify-center">
-                  <span className="text-white font-[600] text-[10px] md:text-[11px]">{initials}</span>
-                </div>
-              ) : (
-                <User className="h-4 w-4 md:h-5 md:w-5 text-primary" />
-              )}
-            </button>
-
-            {profileOpen && (
-              <div className="absolute right-0 top-full mt-2 w-48 bg-white dark:bg-dark-card border border-neutral-border dark:border-neutral-300 rounded-xl shadow-lg py-2 z-50">
-                {isAuthenticated ? (
-                  <>
-                    <div className="px-4 py-2 border-b border-neutral-border dark:border-neutral-300">
-                      <p className="text-[13px] font-[500] text-black dark:text-dark-text truncate">{user?.name}</p>
-                      <p className="text-[11px] font-[400] text-neutral-text-muted truncate">{user?.email}</p>
-                    </div>
-                    <Link
-                      href="/dashboard"
-                      onClick={() => setProfileOpen(false)}
-                      className="flex items-center gap-2 w-full px-4 py-2.5 text-[13px] font-[500] text-black dark:text-dark-text hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors"
-                    >
-                      <LayoutDashboard size={15} />
-                      Dashboard
-                    </Link>
-                    <button
-                      onClick={() => {
-                        setProfileOpen(false);
-                        logout();
-                      }}
-                      className="flex items-center gap-2 w-full px-4 py-2.5 text-[13px] font-[500] text-red-500 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
-                    >
-                      <LogOut size={15} />
-                      Log out
-                    </button>
-                  </>
-                ) : (
-                  <>
-                    <Link
-                      href="/login"
-                      onClick={() => setProfileOpen(false)}
-                      className="flex items-center gap-2 w-full px-4 py-2.5 text-[13px] font-[500] text-black dark:text-dark-text hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors"
-                    >
-                      Log in
-                    </Link>
-                    <Link
-                      href="#"
-                      onClick={() => setProfileOpen(false)}
-                      className="flex items-center gap-2 w-full px-4 py-2.5 text-[13px] font-[500] text-black dark:text-dark-text hover:bg-gray-50 dark:hover:bg-neutral-300 transition-colors"
-                    >
-                      Sign up
-                    </Link>
-                  </>
-                )}
-              </div>
-            )}
->>>>>>> 8e8c0819db026f668a7baa2bd67d7ba9fcff4218
           </div>
 
           <button
