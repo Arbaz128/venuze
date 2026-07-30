@@ -1,41 +1,44 @@
 import Image from "next/image";
 import Link from "next/link";
-import { Mail, MessageSquare, Send, Globe, Camera, MessageCircle, Briefcase } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { FOOTER_COLUMNS } from "@/lib/constants";
+import Twitter from "@/public/icons/social-media/twitter.svg";
+import Facebook from "@/public/icons/social-media/Facebook - Negative.svg";
+import Instagram from "@/public/icons/social-media/Instagram - Negative.svg";
 
 const socialIcons = {
-  facebook: Globe,
-  instagram: Camera,
-  twitter: MessageCircle,
-  linkedin: Briefcase,
+  twitter: Twitter,
+  facebook: Facebook,
+  instagram: Instagram,
 };
 
 export function Footer() {
   return (
-    <footer className="bg-dark-bg text-white">
-      <div className="container-main py-12 md:py-16 lg:py-20">
+    <footer className="bg-black text-white rounded-t-4xl">
+      <div className="container-main py-12 px-5 lg:px-18 md:py-16 lg:py-6 lg:pt-26">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-6 gap-10 lg:gap-8">
-          <div className="lg:col-span-2">
+          <div className="lg:col-span-4">
+          <div className="flex lg:col-span-2 gap-4">
             <Link href="/" className="flex items-center mb-4">
-              <Image src="/images/logo.svg" alt="Venuze" width={130} height={23} className="h-5 md:h-6 w-auto" />
+              <Image src="/logo/Venuze-Logo1 2.svg" alt="Venuze" width={130} height={23} className="h-10 md:h-10 w-auto" />
             </Link>
-            <p className="text-dark-text/60 text-sm md:text-base leading-relaxed max-w-xs">
-              Find and book the perfect venue for your next event. From intimate gatherings to grand celebrations.
+            <p className="text-white text-base font-semibold md:text-lg leading-relaxed max-w-md">
+              Make it memorable—book the perfect venue and the pros who make it shine.
             </p>
           </div>
 
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2 lg:gap-3 mt-8 md:mt-10 lg:mt-10">
           {FOOTER_COLUMNS.map((column) => (
             <div key={column.title}>
-              <h4 className="text-white font-semibold text-sm md:text-base mb-4">
+              <h4 className="text-[#A6A6A6] font-light text-sm md:text-base mb-4">
                 {column.title}
               </h4>
-              <ul className="space-y-3">
+              <ul className="space-y-0.5">
                 {column.links.map((link) => (
                   <li key={link.label}>
                     <Link
                       href={link.href}
-                      className="text-dark-text/60 text-sm hover:text-primary transition-colors"
+                      className="text-white text-xs hover:text-primary transition-colors"
                     >
                       {link.label}
                     </Link>
@@ -44,54 +47,53 @@ export function Footer() {
               </ul>
             </div>
           ))}
+          </div>
+          </div>
 
           <div className="lg:col-span-2">
             <h4 className="text-white font-semibold text-sm md:text-base mb-4">
               Get in Touch
             </h4>
             <div className="space-y-3">
-              <div className="flex items-center gap-3 bg-white/5 rounded-[10px] px-4 py-3">
-                <Mail className="h-4 w-4 text-dark-text/60" />
+              <div className="flex items-center gap-3 bg-[#1D1D1D] border border-[#4A4A4A] rounded-[10px] px-4 py-3">
                 <input
                   type="email"
                   placeholder="Your email"
-                  className="flex-1 bg-transparent text-sm text-white placeholder:text-dark-text/40 outline-none"
+                  className="flex-1 bg-transparent text-sm text-white placeholder:text-white outline-none"
                   aria-label="Email address"
                 />
               </div>
-              <div className="flex items-start gap-3 bg-white/5 rounded-[10px] px-4 py-3">
-                <MessageSquare className="h-4 w-4 text-dark-text/60 mt-1" />
+              <div className="flex items-start gap-3 bg-[#1D1D1D] border border-[#4A4A4A] rounded-[10px] px-4 py-3">
                 <textarea
                   placeholder="Your message"
                   rows={3}
-                  className="flex-1 bg-transparent text-sm text-white placeholder:text-dark-text/40 outline-none resize-none"
+                  className="flex-1 bg-transparent text-sm text-white placeholder:text-white outline-none resize-none"
                   aria-label="Your message"
                 />
               </div>
-              <Button variant="primary" size="md" className="w-full">
-                <Send className="h-4 w-4" />
-                Send Message
+              <Button variant="primary" size="md" className="w-31">
+                Send
               </Button>
             </div>
           </div>
         </div>
 
-        <div className="mt-10 md:mt-14 lg:mt-16 pt-6 md:pt-8 border-t border-white/10 flex flex-col md:flex-row items-center justify-between gap-4">
-          <p className="text-dark-text/40 text-xs md:text-sm text-center md:text-left">
-            &copy; {new Date().getFullYear()} Venuze. All rights reserved.
-          </p>
+        <div className="mt-10 md:mt-14 lg:mt-16 pt-6 md:pt-8 border-t border-[#9A9A9A] flex flex-col md:flex-row items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             {Object.entries(socialIcons).map(([name, Icon]) => (
               <a
                 key={name}
                 href="#"
-                className="h-9 w-9 rounded-full bg-white/10 flex items-center justify-center hover:bg-primary transition-colors"
+                className="h-10 w-10 items-center justify-center hover:bg-primary transition-colors"
                 aria-label={name.charAt(0).toUpperCase() + name.slice(1)}
               >
-                <Icon className="h-4 w-4 text-white" />
+                <Image src={Icon} alt={name} className="h-5 w-5 text-white" />
               </a>
             ))}
           </div>
+          <p className="text-[#9A9A9A] text-xs md:text-sm text-center md:text-left">
+            &copy; {new Date().getFullYear()} Venuze. All rights reserved.
+          </p>
         </div>
       </div>
     </footer>

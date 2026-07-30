@@ -87,6 +87,8 @@ export interface Destination {
   id: string;
   city: string;
   tagline: string;
+  popular: string;
+  startingPrice: number;
   venueCount: number;
   image: string;
 }

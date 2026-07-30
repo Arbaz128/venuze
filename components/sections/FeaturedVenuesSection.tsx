@@ -98,7 +98,7 @@ export function FeaturedVenuesSection() {
         />
       </div>
 
-      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-4 pt-[77px] pb-16 md:pb-20">
+      <div className="relative z-10 w-full max-w-[1440px] mx-auto px-5 lg:px-18 pt-[77px] pb-16 md:pb-20">
         <h2 className="font-[600] text-[44px] leading-[50px] text-white text-center max-w-[380px] mx-auto mb-10">
           Featured Venues
         </h2>

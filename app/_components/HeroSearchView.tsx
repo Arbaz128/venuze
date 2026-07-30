@@ -16,11 +16,11 @@ export function HeroSearchView() {
       <Navbar />
       <Hero />
       <CategoryCardsSection />
-      <TrustedBySection />
-      <HowItWorksSection />
       <FeaturedVenuesSection />
       <VendorGridSection />
       <GrowBusinessCTA />
+      <HowItWorksSection />
+      <TrustedBySection />
       <DestinationsSection />
       <TurnVenueCTA />
       <Footer />

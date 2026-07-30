@@ -8,7 +8,7 @@ interface TestimonialCardProps {
 
 export function TestimonialCard({ testimonial }: TestimonialCardProps) {
   return (
-    <div className="flex bg-white rounded-[20px] shadow-[0px_4px_4px_rgba(0,0,0,0.1)] h-[300px] overflow-hidden">
+    <div className="flex flex-col md:flex-row bg-white rounded-[20px] shadow-[0px_4px_4px_rgba(0,0,0,0.1)] md:h-[300px] overflow-hidden">
       <div className="relative w-[237px] h-full flex-shrink-0 hidden md:block">
         <Image
           src={testimonial.photoSrc}
@@ -30,8 +30,8 @@ export function TestimonialCard({ testimonial }: TestimonialCardProps) {
         />
       </div>
 
-      <div className="flex flex-col justify-center px-8 py-6 gap-[25px] flex-1 min-w-0">
-        <p className="font-[400] text-[20px] leading-[30px] tracking-[0.03em] text-black max-w-[290px]">
+      <div className="flex flex-col justify-center px-6 md:px-8 py-6 gap-[16px] md:gap-[25px] flex-1 min-w-0">
+        <p className="font-[400] text-base md:text-lg leading-[26px] md:leading-[30px] tracking-[0.03em] text-black max-w-[290px]">
           {testimonial.quote}
         </p>
 

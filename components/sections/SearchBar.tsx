@@ -1,5 +1,6 @@
 "use client";
 
+import Image from "next/image";
 import { useState } from "react";
 import { Search, MapPin, Calendar, Users, ChevronDown } from "lucide-react";
 import { Button } from "@/components/ui/Button";
@@ -41,35 +42,35 @@ export function SearchBar({ className }: SearchBarProps) {
 
   return (
     <div className={cn("flex flex-col items-center gap-4", className)}>
-      <div className="flex items-center gap-2 bg-white rounded-full p-1.5 shadow-md">
+      <div className="flex items-center gap-2 bg-white rounded-xl p-1.5 shadow-md z-50 ">
         <button
           onClick={() => setActiveTab("venue")}
           className={cn(
-            "flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all",
+            "flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold transition-all",
             activeTab === "venue"
-              ? "bg-primary text-white"
-              : "bg-transparent text-muted-dark hover:text-primary"
+              ? "bg-[#FF5037] text-white"
+              : "bg-transparent text-muted-dark hover:text-[#e2452d]"
           )}
         >
-          <MapPin className="h-4 w-4" />
+          <Image src="/icons/venue.svg" alt="Venue" width={16} height={16} className="h-4 w-4" />
           Venue
         </button>
         <button
           onClick={() => setActiveTab("vendors")}
           className={cn(
-            "flex items-center gap-2 px-5 py-2 rounded-full text-sm font-semibold transition-all",
+            "flex items-center gap-2 px-5 py-2 rounded-xl text-sm font-semibold transition-all",
             activeTab === "vendors"
-              ? "bg-primary text-white"
-              : "bg-transparent text-muted-dark hover:text-primary"
+              ? "bg-[#FF5037] text-white"
+              : "bg-transparent text-black hover:text-[#e2452d]"
           )}
         >
-          <Users className="h-4 w-4" />
+          <Image src="/icons/vendors.svg" alt="Vendors" width={16} height={16} className="h-4 w-4" />
           Vendors
         </button>
       </div>
 
       {/* Desktop: full pill */}
-      <div className="hidden lg:flex items-center bg-white rounded-full shadow-lg px-6 w-full max-w-[1054px] h-auto min-h-[80px] lg:min-h-[100px]">
+      <div className="hidden lg:flex items-center  -mt-8 bg-white rounded-xl shadow-lg px-2 w-full max-w-[1054px] h-auto min-h-[80px] lg:min-h-[100px]">
         <div className="flex-1 flex items-center gap-6">
           <div className="flex-1 cursor-pointer">
             <LocationField value={location} onChange={setLocation} variant="hero" />
@@ -83,7 +84,7 @@ export function SearchBar({ className }: SearchBarProps) {
             <GuestField value={guests} onChange={setGuests} variant="hero" />
           </div>
         </div>
-        <Button variant="primary" size="lg" className="h-[61px] px-8 ml-4 rounded-full text-lg flex-shrink-0" onClick={handleSearch}>
+        <Button variant="primary" size="lg" className="h-[61px] px-8 ml-4 rounded-xl text-lg flex-shrink-0" onClick={handleSearch}>
           <Search className="h-5 w-5" />
           <span>Search</span>
         </Button>

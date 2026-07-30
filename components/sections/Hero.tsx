@@ -23,7 +23,7 @@ export function Hero({ className }: HeroProps) {
 
       <div className="relative z-10 flex flex-col items-center px-4 pt-24 md:pt-28 pb-8 w-full">
         <h1 className="text-white font-semibold text-center leading-[1.1] tracking-tight max-w-[343px] md:max-w-[683px] lg:max-w-[746px] mt-20 md:mt-16 text-[30px] md:text-[50px] lg:text-[70px] lg:leading-[80px]">
-          Discover & Book the Best Event Spaces
+          Celebrate in venues big and small
         </h1>
 
         <div className="mt-8 md:mt-10 w-full flex justify-center">
